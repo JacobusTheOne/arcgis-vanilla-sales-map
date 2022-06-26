@@ -53,7 +53,7 @@ function DrawMap() {
     graphicsLayer.opacity = 0.5;
     map.add(graphicsLayer);
 
-    d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
+    d3.csv("../data/GreaterVDV_SIMS_Combined.csv", function (data) {
       for (let i = 0; i < data.length; i++) {
         if (data[i].Status == "Unreleased") {
           houseTempStatus = houseStatus.Unreleased;
