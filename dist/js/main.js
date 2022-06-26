@@ -54,6 +54,7 @@ function DrawMap() {
     map.add(graphicsLayer);
 
     d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
+      console.log(data);
       for (let i = 0; i < data.length; i++) {
         if (data[i].Status == "Unreleased") {
           houseTempStatus = houseStatus.Unreleased;
@@ -64,17 +65,17 @@ function DrawMap() {
         } else {
           houseTempStatus = houseStatus.Other;
         }
-
-        graphicsLayer.add(
-          CreateHousePolygon(
-            parseFloat(data[i].Longitude),
-            parseFloat(data[i].Latitude),
-            10,
-            houseTempStatus,
-            data[i].Area,
-            data[i].Address
-          )
-        );
+        if (data[i] !== null) {
+          graphicsLayer.add(
+            CreateHousePolygon(
+              parseFloat(data[i].Longitude),
+              parseFloat(data[i].Latitude),
+              10,
+              houseTempStatus,
+              data[i].Label
+            )
+          );
+        }
       }
     });
     const streetLayer = new FeatureLayer({
@@ -130,7 +131,7 @@ function DrawMap() {
     map.add(erfLayer);
 
     //function to create the house polygon
-    function CreateHousePolygon(x, y, size, status, title, content) {
+    function CreateHousePolygon(x, y, size, status, title) {
       const polygon2 = {
         type: "polygon",
         rings: convert([x, y], size, 20), //18.96529158, -33.80835267, 10
