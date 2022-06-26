@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>
+      ArcGIS API for JavaScript Tutorials: Add a styled basemap layer
+    </title>
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.23/esri/themes/light/main.css"
+    />
+    <script
+      charset="utf-8"
+      type="text/javascript"
+      src="https://js.hsforms.net/forms/v2.js"
+    ></script>
+    <script
+      charset="utf-8"
+      type="text/javascript"
+      src="https://js.hsforms.net/forms/v2.js"
+    ></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://js.arcgis.com/4.23/"></script>
+    <script defer src="./dist/js/main.js"></script>
+  </head>
+  <body>
+    <div style="display: flex;flex-direction:row">
+      <div id="viewDiv" style="height: 100vh; width: 100vw; position: relative">
+      <div style="display: flex;flex-direction: column;position: absolute;left: 70vw;width: 100px;height: 200px;background-color: rgb(255, 255, 255); z-index: 1;
+      border-radius: 5px; padding: 10px">
+        <h3 style="font-size: 13px;">Legend</h3>
+        <div style="display:flex;flex-direction: row;">
+          <p style="padding: 3px 0;font-size: 11px; width: 80px;">Unreleased </p>
+          <p style="content:'\A';
+            width:10px;
+            height:10px;
+            border-radius:50%;
+            background: rgb(99, 97, 97);
+            
+          
+            ";
+            ></p>
+        </div>
+        <div style=" display:flex;flex-direction: row;">
+          <p style="padding: 3px 0;font-size: 11px; width: 80px;">Available </p>
+          <p style="content:'\A';
+            width:10px;
+            height:10px;
+            border-radius:50%;
+            background: #67ff2f;
+            
+          
+            ";
+            ></p>
+        </div>
+        <div style="display:flex;flex-direction: row;">
+          <p style="padding: 3px 0;font-size: 11px; width: 80px;">Sold </p>
+          <p style="content:'\A';
+            width:10px;
+            height:10px;
+            border-radius:50%;
+            background: #ff0000;
+            
+          
+            ";
+            ></p>
+        </div>
+        <div style="display:flex;flex-direction: row;">
+          <p style="padding: 3px 0;font-size: 11px; width: 80px;">Unavailable</p>
+          <p style="content:'\A';
+            width:10px;
+            height:10px;
+            border-radius:50%;
+            background: rgb(0,0,255);
+            
+          
+            ";
+            ></p>
+        </div>
+      </div>
+      <div id="infoDiv" class="esri-widget">
+        <input
+          type="checkbox"
+          id="descriptive-labels"
+          class="esri-widget"
+          checked
+        />
+      Show descriptive labels
+      <!-- <div id="legendDiv"></div> -->
+    </div>
+    </div>
+  </body>
+</html>
