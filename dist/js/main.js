@@ -80,7 +80,7 @@ function DrawMap() {
             CreateHousePolygon(
               parseFloat(data[i].Longitude),
               parseFloat(data[i].Latitude),
-              10,
+              7,
               houseTempStatus,
               data[i].Label
             )
