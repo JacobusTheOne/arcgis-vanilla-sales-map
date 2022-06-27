@@ -29,6 +29,10 @@ function DrawMap() {
       Available: [0, 255, 0], //green
 
       Other: [0, 0, 255], //blue
+
+      Transferred: [249, 105, 14], //orange
+
+      Reserved: [191, 85, 236], //purple
     };
 
     const map = new Map({
@@ -54,14 +58,20 @@ function DrawMap() {
     map.add(graphicsLayer);
 
     d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
-      console.log(data);
+      let temp = "";
       for (let i = 0; i < data.length; i++) {
-        if (data[i].Status == "Unreleased") {
+        temp = data[i].Status;
+        temp = temp.toUpperCase();
+        if (temp == "UNRELEASED") {
           houseTempStatus = houseStatus.Unreleased;
-        } else if (data[i].Status == "Available") {
+        } else if (temp == "AVAILABLE") {
           houseTempStatus = houseStatus.Available;
-        } else if (data[i].Status == "Sold") {
+        } else if (temp == "SOLD") {
           houseTempStatus = houseStatus.Sold;
+        } else if (temp == "TRANSFERRED") {
+          houseTempStatus = houseStatus.Transferred;
+        } else if (temp == "RESERVED") {
+          houseTempStatus = houseStatus.Reserved;
         } else {
           houseTempStatus = houseStatus.Other;
         }
