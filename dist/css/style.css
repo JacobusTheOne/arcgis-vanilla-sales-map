@@ -1,0 +1,41 @@
+/* STYLING LEGEND BOX */
+
+#legend-container-box {
+    border: 2px solid #000000;
+}
+
+/* HIDES THE MENU TOGGLE ON DESKTOP VIEW */
+#menu-toggle {
+    display: none !important;
+}
+
+/* CREATES THE DROPDOWN MENU FOR SCREENS UNDER 600PX */
+@media screen and (max-width: 600px) {
+
+    #menu-toggle {
+        margin-top: 10px;
+        display: block !important;
+        margin: 10px auto 0;
+    }
+
+    #legend-title {
+        text-align: center;
+    }
+
+    #legend-title:hover {
+        cursor: pointer;
+    }
+    
+    .legend-container.closed {
+        height: auto !important;
+    }
+    
+    .legend-container.closed div {
+        display: none !important;
+    }
+
+    .legend-container.open {
+        height: auto !important;
+    }
+}
+

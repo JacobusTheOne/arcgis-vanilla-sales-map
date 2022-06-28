@@ -268,3 +268,20 @@ formId: "ce85dcbb-ced4-4ed4-9470-94a83100ba21",
 }
 
 setTimeout(DrawMap(), 1000);
+
+// DROPDOWN CODE STARTS
+document.getElementById("legend-title").addEventListener("click", function(){
+
+  const menuToggle = document.getElementById("legend-container-box");
+
+  if (menuToggle.classList.contains("closed")) {
+    document.getElementById("legend-container-box").classList.remove("closed");
+    document.getElementById("legend-container-box").classList.add("open");
+    document.getElementById("menu-toggle").src = "dist/images/drop-down-close.png"
+  } else {
+    document.getElementById("legend-container-box").classList.remove("open");
+    document.getElementById("legend-container-box").classList.add("closed");
+    document.getElementById("menu-toggle").src = "dist/images/drop-down-open.png"
+  }
+});
+// DROPDOWN CODE ENDS

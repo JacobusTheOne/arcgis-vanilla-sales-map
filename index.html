@@ -12,6 +12,10 @@
       rel="stylesheet"
       href="https://js.arcgis.com/4.23/esri/themes/light/main.css"
     />
+    <link
+      rel="stylesheet"
+      href="dist/css/style.css"
+    />
     <script
       charset="utf-8"
       type="text/javascript"
@@ -29,9 +33,9 @@
   <body>
     <div style="display: flex;flex-direction:row">
       <div id="viewDiv" style="height: 100vh; width: 100vw; position: relative">
-      <div style="display: flex;flex-direction: column;position: absolute;right: 0vw;width: 100px;height: 275px;background-color: rgb(255, 255, 255); z-index: 1;
+      <div id="legend-container-box" class="legend-container open" style="display: flex;flex-direction: column;position: absolute;right: 0vw;width: 100px;height: 275px;background-color: rgb(255, 255, 255); z-index: 1;
       border-radius: 5px; padding: 10px">
-        <h3 style="font-size: 13px;">Legend</h3>
+        <h3 id="legend-title" style="font-size: 13px;">Legend <span class="desktop-hide"> <img id="menu-toggle" height="15px" src="dist/images/drop-down-close.png"> </span></h3>
         <div style="display:flex;flex-direction: row;">
           <p style="padding: 3px 0;font-size: 11px; width: 80px;">Unreleased </p>
           <p style="content:'\A';
