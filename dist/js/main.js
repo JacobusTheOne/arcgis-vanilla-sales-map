@@ -59,6 +59,7 @@ function DrawMap() {
 
     d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
       let temp = "";
+      let size = "Enquire for info.";
       for (let i = 0; i < data.length; i++) {
         temp = data[i].Status;
         if (temp != undefined) {
@@ -77,19 +78,20 @@ function DrawMap() {
         } else {
           houseTempStatus = houseStatus.Other;
         }
-        if (data[i] !== null) {
-          graphicsLayer.add(
-            CreateHousePolygon(
-              parseFloat(data[i].Longitude),
-              parseFloat(data[i].Latitude),
-              7,
-              houseTempStatus,
-              data[i].Label,
-              data[i].Label,
-              data[i].Size
-            )
-          );
+        if (data[i].Size !== "") {
+          size = data[i].Size;
         }
+        graphicsLayer.add(
+          CreateHousePolygon(
+            parseFloat(data[i].Longitude),
+            parseFloat(data[i].Latitude),
+            7,
+            houseTempStatus,
+            data[i].Label,
+            data[i].Label,
+            size
+          )
+        );
       }
     });
     const streetLayer = new FeatureLayer({
