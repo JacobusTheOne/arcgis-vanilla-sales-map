@@ -61,7 +61,9 @@ function DrawMap() {
       let temp = "";
       for (let i = 0; i < data.length; i++) {
         temp = data[i].Status;
-        temp = temp.toUpperCase();
+        if (temp != undefined) {
+          temp = temp.toUpperCase();
+        }
         if (temp == "UNRELEASED") {
           houseTempStatus = houseStatus.Unreleased;
         } else if (temp == "AVAILABLE") {
@@ -82,7 +84,9 @@ function DrawMap() {
               parseFloat(data[i].Latitude),
               7,
               houseTempStatus,
-              data[i].Label
+              data[i].Label,
+              data[i].Label,
+              data[i].Size
             )
           );
         }
@@ -141,7 +145,15 @@ function DrawMap() {
     map.add(erfLayer);
 
     //function to create the house polygon
-    function CreateHousePolygon(x, y, size, status, title) {
+    function CreateHousePolygon(
+      x,
+      y,
+      size,
+      status,
+      title,
+      housenumber = "300",
+      housesize = "50"
+    ) {
       const polygon2 = {
         type: "polygon",
         rings: convert([x, y], size, 20), //18.96529158, -33.80835267, 10
@@ -158,19 +170,27 @@ function DrawMap() {
 
       const popupTemplate2 = {
         outFields: ["*"],
-        title: title,
+        title: "", //title,
         content: function (feature) {
           //const { OBJECTID } = feature.graphic.attributes;
           const div = document.createElement("div");
           const script = document.createElement("script");
-          //script.setAttribute("src","PopupSrc.js");
+          //script.setAttribute("src", "./dist/js/PopupSrc.js");
           script.innerHTML = `hbspt.forms.create({
-region: "na1",
-portalId: "5623527",
-formId: "ce85dcbb-ced4-4ed4-9470-94a83100ba21",
-});`;
+            region: "na1",
+            portalId: "5623527",
+            formId: "f915a1a7-8a5e-46f5-bf3d-ba0267c50f65",
+            onFormReady: ($form) => {
+              $form.find(
+                'input[name = "size"]'
+              ).val(${housesize}).change();
+              $form.find(
+                'input[name = "unit_number_interested"]'
+              ).val(${housenumber}).change();
+            },
+          })`;
           //div.innerHTML = `<input type='button' onclick=runCode(${OBJECTID}) value='Click Me'></input>`;
-          //return div;
+          //return div; https://share.hsforms.com/1-RWhp4peRvW_PboCZ8UPZQ3cj53
           return script;
         },
       };
@@ -270,18 +290,19 @@ formId: "ce85dcbb-ced4-4ed4-9470-94a83100ba21",
 setTimeout(DrawMap(), 1000);
 
 // DROPDOWN CODE STARTS
-document.getElementById("legend-title").addEventListener("click", function(){
-
+document.getElementById("legend-title").addEventListener("click", function () {
   const menuToggle = document.getElementById("legend-container-box");
 
   if (menuToggle.classList.contains("closed")) {
     document.getElementById("legend-container-box").classList.remove("closed");
     document.getElementById("legend-container-box").classList.add("open");
-    document.getElementById("menu-toggle").src = "dist/images/drop-down-close.png"
+    document.getElementById("menu-toggle").src =
+      "dist/images/drop-down-close.png";
   } else {
     document.getElementById("legend-container-box").classList.remove("open");
     document.getElementById("legend-container-box").classList.add("closed");
-    document.getElementById("menu-toggle").src = "dist/images/drop-down-open.png"
+    document.getElementById("menu-toggle").src =
+      "dist/images/drop-down-open.png";
   }
 });
 // DROPDOWN CODE ENDS
