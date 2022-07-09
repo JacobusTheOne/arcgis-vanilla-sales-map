@@ -33,7 +33,14 @@
   </head>
   <body>
     <div style="display: flex;flex-direction:row">
-      <div id="viewDiv" style="height: 100vh; width: 100vw; position: relative">
+      <div id="selectingPages" style="background-color: lightcyan;width:5vw;height:100vh;display:flex;flex-direction: column;">
+        <button onclick='changeSrc("./home.html")'>Home</button>
+        <button>Search</button>
+        <button>Listings</button>
+        <button>Enquire</button>
+      </div>
+      <iframe id="pages" style="background-color: aqua;width:20vw;height:100vh;"></iframe>
+      <div id="viewDiv" style="height: 100vh; width: 75vw; position: relative">
       <div id="legend-container-box" class="legend-container open" style="display: flex;flex-direction: column;position: absolute;left: 0vw;width: 100px;height: 275px;background-color: rgb(255, 255, 255); z-index: 1;
       border-radius: 5px; padding: 10px">
         <h3 id="legend-title" style="font-size: 13px;">Legend <span class="desktop-hide"> <img id="menu-toggle" height="15px" src="dist/images/drop-down-close.png"> </span></h3>

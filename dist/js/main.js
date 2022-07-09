@@ -1,3 +1,7 @@
+function changeSrc(loc) {
+  document.getElementById("pages").src = loc;
+}
+
 function DrawMap() {
   require([
     "esri/config",
