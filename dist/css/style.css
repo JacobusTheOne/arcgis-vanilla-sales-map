@@ -1,33 +1,37 @@
 /* STYLING LEGEND BOX */
 
 #legend-container-box {
-    border: 2px solid #000000;
+  border: 2px solid #000000;
 }
 
 /* CREATES THE DROPDOWN MENU */
 
 #menu-toggle {
-    margin-top: 10px;
-    display: block !important;
-    margin: 10px auto 0;
+  margin-top: 10px;
+  display: block !important;
+  margin: 10px auto 0;
 }
 
 #legend-title {
-    text-align: center;
+  text-align: center;
 }
 
 #legend-title:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
-    
+
 .legend-container.closed {
-    height: auto !important;
+  height: auto !important;
 }
-    
+
 .legend-container.closed div {
-    display: none !important;
+  display: none !important;
 }
 
 .legend-container.open {
-    height: auto !important;
+  height: auto !important;
+}
+
+#selectingPages {
+  justify-content: center;
 }

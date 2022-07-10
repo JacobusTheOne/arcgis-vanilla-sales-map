@@ -312,3 +312,7 @@ document.getElementById("legend-title").addEventListener("click", function () {
   }
 });
 // DROPDOWN CODE ENDS
+//OPEN DEFAULT HOME PAGE
+document.getElementById("defaultOpen").click();
+
+//SIDE MENU OPEN STARTS

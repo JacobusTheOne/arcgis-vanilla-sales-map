@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css"
+    />
+    <!-- <link rel="stylesheet" href="https://resources/demos/style.css" /> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script src="../../js/search.js"></script>
+    <script>
+      $(document).ready(function () {
+        //////////////////////////
+        $("#slider-range").slider({
+          range: true,
+          min: 0,
+          max: 58000000,
+          values: [0, 5800000],
+          slide: function (event, ui) {
+            $("#amount").val("R" + ui.values[0] + " - R" + ui.values[1]);
+          },
+        });
+        $("#amount").val(
+          "R" +
+            $("#slider-range").slider("values", 0) +
+            " - R" +
+            $("#slider-range").slider("values", 1)
+        );
+        ////////////////
+        $("#slider-range2").slider({
+          range: true,
+          min: 1,
+          max: 6,
+          values: [0, 6],
+          slide: function (event, ui) {
+            $("#amount2").val(ui.values[0] + " - " + ui.values[1]);
+          },
+        });
+        $("#amount2").val(
+          $("#slider-range2").slider("values", 0) +
+            " - " +
+            $("#slider-range2").slider("values", 1)
+        );
+        //////////////////
+        $("#slider-range3").slider({
+          range: true,
+          min: 1,
+          max: 6,
+          values: [0, 6],
+          slide: function (event, ui) {
+            $("#amount3").val(ui.values[0] + " - " + ui.values[1]);
+          },
+        });
+        $("#amount3").val(
+          $("#slider-range3").slider("values", 0) +
+            " - " +
+            $("#slider-range3").slider("values", 1)
+        );
+        //////////////////
+      });
+    </script>
+    <style>
+      #submit-button {
+        margin-top: 30px;
+      }
+      /* Style the tab */
+      .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+      }
+
+      /* Style the buttons that are used to open the tab content */
+      .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+      }
+
+      /* Change background color of buttons on hover */
+      .tab button:hover {
+        background-color: #ddd;
+      }
+
+      /* Create an active/current tablink class */
+      .tab button.active {
+        background-color: #ccc;
+      }
+
+      /* Style the tab content */
+      .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+      }
+    </style>
+    <title>Search</title>
+  </head>
+  <body>
+    <section>
+      <div class="tab">
+        <button
+          id="defaultOpen"
+          class="tablinks"
+          onclick="openCity(event, 'For Sale')"
+        >
+          For Sale
+        </button>
+        <button class="tablinks" onclick="openCity(event, 'Unit Search')">
+          Unit Search
+        </button>
+      </div>
+      <!-- Tab content -->
+      <div id="For Sale" class="tabcontent">
+        <h1>Property Detail</h1>
+        <label><input type="checkbox" checked />Any</label>
+        <label><input type="checkbox" />Land</label>
+        <label><input type="checkbox" />House</label>
+        <label><input type="checkbox" />Apartment</label>
+        <h5>Price</h5>
+        <p>
+          <label for="amount">Price range:</label>
+          <input
+            type="text"
+            id="amount"
+            readonly
+            style="border: 0; color: #f6931f; font-weight: bold"
+          />
+        </p>
+        <div id="slider-range"></div>
+        <h5>Bedrooms</h5>
+        <p>
+          <label for="amount2"></label>
+          <input
+            type="text"
+            id="amount2"
+            readonly
+            style="border: 0; color: #f6931f; font-weight: bold"
+          />
+        </p>
+        <div id="slider-range2"></div>
+        <h5>Bathrooms</h5>
+        <p>
+          <label for="amount3"></label>
+          <input
+            type="text"
+            id="amount3"
+            readonly
+            style="border: 0; color: #f6931f; font-weight: bold"
+          />
+        </p>
+        <div id="slider-range3"></div>
+        <div></div>
+        <input id="submit-button" type="submit" value="Submit" />
+      </div>
+
+      <div id="Unit Search" class="tabcontent">
+        <input placeholder="Enter the unit number" type="text" />
+        <input type="checkbox" checked />
+        <button>search</button>
+      </div>
+    </section>
+  </body>
+  <script>
+    document.getElementById("defaultOpen").click();
+  </script>
+</html>
