@@ -14,6 +14,7 @@ function DrawMap() {
     "esri/renderers/SimpleRenderer",
     "esri/symbols/SimpleFillSymbol",
     "esri/widgets/Legend",
+    "esri/geometry/Point",
   ], function (
     esriConfig,
     Map,
@@ -23,7 +24,8 @@ function DrawMap() {
     FeatureLayer,
     SimpleRenderer,
     SimpleFillSymbol,
-    Legend
+    Legend,
+    Point
   ) {
     const houseStatus = {
       Unreleased: [99, 97, 97], //dark grey
@@ -60,7 +62,8 @@ function DrawMap() {
     const graphicsLayer = new GraphicsLayer();
     graphicsLayer.opacity = 0.5;
     map.add(graphicsLayer);
-
+    const graphicsSymbolLayer = new GraphicsLayer();
+    map.add(graphicsSymbolLayer);
     d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
       let temp = "";
       let size = "Enquire for info.";
@@ -98,6 +101,11 @@ function DrawMap() {
         );
       }
     });
+    //!!!!!!!!!!!!!!
+    /* graphicsLayer.add(
+      CreatePhotoPolygon(18.9666974, -33.80922, 7, houseStatus.Sold)
+    ); */
+    graphicsSymbolLayer.add(SymbolMap(18.9666974, -33.80922));
     const streetLayer = new FeatureLayer({
       url: "https://services5.arcgis.com/WPkXI1mQdYLzFttB/arcgis/rest/services/Navigation_Barriers/FeatureServer/0",
     });
@@ -214,8 +222,90 @@ function DrawMap() {
       });
       return polygonGraphic2;
     }
+    //CREATE SYMBOL ON THE MAP
+    function SymbolMap(x, y) {
+      const textSymbol = {
+        type: "text", // autocasts as new TextSymbol()
+        color: "#000",
+        fill: "simple-fill",
+        text: "\ue661", // Picture Symbol
+        font: {
+          // autocasts as new Font()
+          size: 36,
+          family: "CalciteWebCoreIcons",
+        },
+      };
+      const point1 = new Point({
+        longitude: x,
+        latitude: y,
+      });
+      const popupTemplate2 = {
+        outFields: ["*"],
+        defaultPopupTemplateEnabled: true,
+        title: "", //title,
+        content: function (feature) {
+          //const { OBJECTID } = feature.graphic.attributes;
+          const div = document.createElement("div");
+          const img = document.createElement("img");
+          img.src = "./dist/images/1M8A9029.jpg";
+          img.classList.add("photo-image");
+          div.appendChild(img);
+          return div;
+        },
+      };
+      const pointGraphic5 = new Graphic({
+        geometry: point1,
+        symbol: textSymbol,
+        popupTemplate: popupTemplate2,
+      });
+      return pointGraphic5;
+    }
+    //PHOTO POLYGON FUNCTION
+    function CreatePhotoPolygon(x, y, size, status) {
+      const polygon2 = {
+        type: "polygon",
+        rings: convert([x, y], size, 20), //18.96529158, -33.80835267, 10
+      };
+
+      const simpleFillSymbol2 = {
+        type: "simple-fill",
+        color: status, // Orange, opacity 80%
+        outline: {
+          color: [255, 255, 255],
+          width: 1,
+        },
+      };
+
+      const popupTemplate2 = {
+        outFields: ["*"],
+        title: "", //title,
+        content: function (feature) {
+          //const { OBJECTID } = feature.graphic.attributes;
+          const div = document.createElement("div");
+          const img = document.createElement("img");
+          img.src = "./dist/images/popup_photos/VdV-Logo-R.png";
+
+          div.appendChild(img);
+          return div;
+        },
+      };
+
+      const attributes2 = {
+        Name: "Graphic",
+        Description: "I am a polygon",
+      };
+
+      const polygonGraphic2 = new Graphic({
+        geometry: polygon2,
+        symbol: simpleFillSymbol2,
+        attributes: attributes2,
+        popupTemplate: popupTemplate2,
+      });
+      return polygonGraphic2;
+    }
   });
   //return a polygon array square of the house
+  //ADD PHOTO PHOTO TO MAP
 
   function convert(center, radius, numberOfSegments = 360) {
     let n = numberOfSegments;
@@ -316,3 +406,19 @@ document.getElementById("legend-title").addEventListener("click", function () {
 document.getElementById("defaultOpen").click();
 
 //SIDE MENU OPEN STARTS
+function SideMenu() {
+  const sideMenuIconToggle = document.getElementById("sideMenu");
+  const iframePages = document.getElementById("pages");
+  const map = document.getElementById("viewDiv");
+  if (sideMenuIconToggle.classList.contains("fa-angle-double-right")) {
+    sideMenuIconToggle.classList.remove("fa-angle-double-right");
+    sideMenuIconToggle.classList.add("fa-angle-double-left");
+    iframePages.style.display = "none";
+    map.style.width = "96vw";
+  } else {
+    sideMenuIconToggle.classList.remove("fa-angle-double-left");
+    sideMenuIconToggle.classList.add("fa-angle-double-right");
+    iframePages.style.display = "block";
+    map.style.width = "75vw";
+  }
+}

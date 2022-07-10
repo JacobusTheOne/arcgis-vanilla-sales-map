@@ -21,7 +21,7 @@
 }
 
 .legend-container.closed {
-  height: auto !important;
+  height: 79px !important;
 }
 
 .legend-container.closed div {
@@ -34,4 +34,9 @@
 
 #selectingPages {
   justify-content: center;
+}
+
+.photo-image {
+  width: 340px;
+  height: auto;
 }
