@@ -15,6 +15,7 @@ function DrawMap() {
     "esri/symbols/SimpleFillSymbol",
     "esri/widgets/Legend",
     "esri/geometry/Point",
+    "esri/symbols/CIMSymbol",
   ], function (
     esriConfig,
     Map,
@@ -62,8 +63,7 @@ function DrawMap() {
     const graphicsLayer = new GraphicsLayer();
     graphicsLayer.opacity = 0.5;
     map.add(graphicsLayer);
-    const graphicsSymbolLayer = new GraphicsLayer();
-    map.add(graphicsSymbolLayer);
+
     d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
       let temp = "";
       let size = "Enquire for info.";
@@ -105,7 +105,8 @@ function DrawMap() {
     /* graphicsLayer.add(
       CreatePhotoPolygon(18.9666974, -33.80922, 7, houseStatus.Sold)
     ); */
-    graphicsSymbolLayer.add(SymbolMap(18.9666974, -33.80922));
+    //graphicsSymbolLayer.add(SymbolMap(18.9666974, -33.80922));
+
     const streetLayer = new FeatureLayer({
       url: "https://services5.arcgis.com/WPkXI1mQdYLzFttB/arcgis/rest/services/Navigation_Barriers/FeatureServer/0",
     });
@@ -135,7 +136,7 @@ function DrawMap() {
     const dotLyaer = new FeatureLayer({
       url: "https://services5.arcgis.com/WPkXI1mQdYLzFttB/arcgis/rest/services/Greater_VdV_Addresses/FeatureServer/0",
 
-      labelingInfo: [valdevieLabels],
+      labelingInfo: [], //[valdevieLabels],
     });
     dotLyaer.opacity = 0;
 
@@ -154,10 +155,15 @@ function DrawMap() {
       symbol: symbol,
     };
     erfLayer.renderer = erfLayerRenderer;
+    const graphicsSymbolLayer = new GraphicsLayer();
+    graphicsSymbolLayer.add(
+      CIM_CameraSymbol(18.9666974, -33.80922, "./dist/images/1M8A9029.jpg")
+    );
+    //graphicsSymbolLayer.add(SymbolMap(18.9666974, -33.80922, "Jakes"));
     map.add(streetLayer);
     map.add(dotLyaer);
     map.add(erfLayer);
-
+    map.add(graphicsSymbolLayer);
     //function to create the house polygon
     function CreateHousePolygon(
       x,
@@ -186,10 +192,8 @@ function DrawMap() {
         outFields: ["*"],
         title: "", //title,
         content: function (feature) {
-          //const { OBJECTID } = feature.graphic.attributes;
-          const div = document.createElement("div");
+          /* const div = document.createElement("div");
           const script = document.createElement("script");
-          //script.setAttribute("src", "./dist/js/PopupSrc.js");
           script.innerHTML = `hbspt.forms.create({
             region: "na1",
             portalId: "5623527",
@@ -203,9 +207,34 @@ function DrawMap() {
               ).val(${housenumber}).change();
             },
           })`;
-          //div.innerHTML = `<input type='button' onclick=runCode(${OBJECTID}) value='Click Me'></input>`;
-          //return div; https://share.hsforms.com/1-RWhp4peRvW_PboCZ8UPZQ3cj53
-          return script;
+          return script; */
+          //!!!!!!!!!!!!!!!!!!!CHANGE HERE!!!!!!!!!!!!!!!!!!!
+          const price = (Math.random() * 500000 + 4500000).toFixed(2);
+          const div = document.createElement("div");
+          const h4HouseNumber = document.createElement("h4");
+          const h4Price = document.createElement("h4");
+          const buttonEnquire = document.createElement("button");
+          const buttonDetails = document.createElement("button");
+          const buttonAddToFavorites = document.createElement("button");
+          buttonDetails.setAttribute(
+            "onclick",
+            `Enquire('${(housenumber, size)}');`
+          );
+          buttonEnquire.setAttribute(
+            "onclick",
+            "changeSrc('./dist/pages/main/enquire.html')"
+          );
+          h4HouseNumber.innerText = `Unit: ${housenumber}`;
+          h4Price.innerText = `Price: R${price}`;
+          buttonEnquire.textContent = "ENQUIRE";
+          buttonDetails.textContent = "DETAILS";
+          buttonAddToFavorites.textContent = "ADD TO FAVORITES";
+          div.appendChild(h4HouseNumber);
+          div.appendChild(h4Price);
+          div.appendChild(buttonEnquire);
+          div.appendChild(buttonDetails);
+          div.appendChild(buttonAddToFavorites);
+          return div;
         },
       };
 
@@ -223,12 +252,263 @@ function DrawMap() {
       return polygonGraphic2;
     }
     //CREATE SYMBOL ON THE MAP
-    function SymbolMap(x, y) {
+    function CIM_CameraSymbol(x, y, image) {
+      function getCIMSymbolData() {
+        return {
+          type: "CIMSymbolReference",
+          primitiveOverrides: [
+            {
+              type: "CIMPrimitiveOverride",
+              primitiveName: "textGraphic",
+              propertyName: "TextString",
+              valueExpressionInfo: {
+                type: "CIMExpressionInfo",
+                title: "Custom",
+                expression: "$feature.text",
+                returnType: "Default",
+              },
+            },
+          ],
+          symbol: {
+            type: "CIMPointSymbol",
+            symbolLayers: [
+              {
+                type: "CIMVectorMarker",
+                enable: true,
+                anchorPointUnits: "Relative",
+                dominantSizeAxis3D: "Y",
+                size: 40,
+                billboardMode3D: "FaceNearPlane",
+                frame: {
+                  xmin: 0,
+                  ymin: 0,
+                  xmax: 21,
+                  ymax: 21,
+                },
+                markerGraphics: [
+                  {
+                    type: "CIMMarkerGraphic",
+                    geometry: {
+                      rings: [
+                        [
+                          [14, 17],
+                          [15, 14],
+                          [18, 14],
+                          [18, 5],
+                          [3, 5],
+                          [3, 14],
+                          [4, 14],
+                          [4, 15],
+                          [6, 15],
+                          [6, 14],
+                          [8, 14],
+                          [9, 17],
+                          [14, 17],
+                        ],
+                        [
+                          [10, 16],
+                          [10, 15],
+                          [13, 15],
+                          [13, 16],
+                          [10, 16],
+                        ],
+                        [
+                          [4, 13],
+                          [4, 12],
+                          [6, 12],
+                          [6, 13],
+                          [4, 13],
+                        ],
+                        [
+                          [8.1, 9.5],
+                          [8.16, 8.84],
+                          [8.36, 8.2],
+                          [8.67, 7.61],
+                          [9.09, 7.09],
+                          [9.61, 6.67],
+                          [10.2, 6.36],
+                          [10.84, 6.16],
+                          [11.5, 6.1],
+                          [12.16, 6.16],
+                          [12.8, 6.36],
+                          [13.39, 6.67],
+                          [13.91, 7.09],
+                          [14.33, 7.61],
+                          [14.64, 8.2],
+                          [14.84, 8.84],
+                          [14.9, 9.5],
+                          [14.84, 10.16],
+                          [14.64, 10.8],
+                          [14.33, 11.39],
+                          [13.91, 11.91],
+                          [13.39, 12.33],
+                          [12.8, 12.64],
+                          [12.16, 12.84],
+                          [11.5, 12.9],
+                          [10.84, 12.84],
+                          [10.2, 12.64],
+                          [9.61, 12.33],
+                          [9.09, 11.91],
+                          [8.67, 11.39],
+                          [8.36, 10.8],
+                          [8.16, 10.16],
+                          [8.1, 9.5],
+                        ],
+                        [
+                          [11.5, 7.15],
+                          [10.6, 7.33],
+                          [9.84, 7.84],
+                          [9.33, 8.6],
+                          [9.15, 9.5],
+                          [9.33, 10.4],
+                          [9.84, 11.16],
+                          [10.6, 11.67],
+                          [11.5, 11.85],
+                          [12.4, 11.67],
+                          [13.16, 11.16],
+                          [13.67, 10.4],
+                          [13.85, 9.5],
+                          [13.67, 8.6],
+                          [13.16, 7.84],
+                          [12.4, 7.33],
+                          [11.5, 7.15],
+                        ],
+                      ],
+                    },
+                    symbol: {
+                      type: "CIMPolygonSymbol",
+                      symbolLayers: [
+                        {
+                          type: "CIMSolidStroke",
+                          enable: true,
+                          capStyle: "Round",
+                          joinStyle: "Round",
+                          lineStyle3D: "Strip",
+                          miterLimit: 10,
+                          width: 0,
+                          color: [110, 110, 110, 255],
+                        },
+                        {
+                          type: "CIMSolidFill",
+                          enable: true,
+                          color: [0, 51, 255, 255],
+                        },
+                      ],
+                    },
+                  },
+                ],
+                scaleSymbolsProportionally: true,
+                respectFrame: true,
+              },
+              {
+                type: "CIMVectorMarker",
+                enable: true,
+                anchorPointUnits: "Relative",
+                dominantSizeAxis3D: "Y",
+                size: 17,
+                billboardMode3D: "FaceNearPlane",
+                frame: {
+                  xmin: 0,
+                  ymin: 0,
+                  xmax: 28,
+                  ymax: 17,
+                },
+                markerGraphics: [
+                  {
+                    type: "CIMMarkerGraphic",
+                    geometry: {
+                      rings: [
+                        [
+                          [25.36, 0],
+                          [2.64, 0],
+                          [1.63, 0.19],
+                          [0.77, 0.74],
+                          [0.2, 1.56],
+                          [0, 2.52],
+                          [0, 14.48],
+                          [0.2, 15.44],
+                          [0.77, 16.26],
+                          [1.63, 16.81],
+                          [2.64, 17],
+                          [25.36, 17],
+                          [26.37, 16.81],
+                          [27.23, 16.26],
+                          [27.8, 15.44],
+                          [28, 14.48],
+                          [28, 2.52],
+                          [27.8, 1.56],
+                          [27.23, 0.74],
+                          [26.37, 0.19],
+                          [25.36, 0],
+                        ],
+                      ],
+                    },
+                    symbol: {
+                      type: "CIMPolygonSymbol",
+                      symbolLayers: [
+                        {
+                          type: "CIMSolidStroke",
+                          enable: true,
+                          capStyle: "Round",
+                          joinStyle: "Round",
+                          lineStyle3D: "Strip",
+                          miterLimit: 10,
+                          width: 0,
+                          color: [0, 0, 0, 255],
+                        },
+                        {
+                          type: "CIMSolidFill",
+                          enable: true,
+                          color: [255, 255, 255, 255],
+                        },
+                      ],
+                    },
+                  },
+                ],
+                scaleSymbolsProportionally: true,
+                respectFrame: true,
+                offsetY: -2,
+              },
+            ],
+          },
+        };
+      }
+
+      const popupTemplate2 = {
+        outFields: ["*"],
+        defaultPopupTemplateEnabled: true,
+        title: "", //title,
+        content: function (feature) {
+          const div = document.createElement("div");
+          const img = document.createElement("img");
+          img.src = image;
+          img.classList.add("photo-image");
+          div.appendChild(img);
+          return div;
+        },
+      };
+      const pointGraphic5 = new Graphic({
+        geometry: {
+          type: "point",
+          latitude: y,
+          longitude: x,
+        },
+        attributes: {},
+        symbol: {
+          type: "cim",
+          data: getCIMSymbolData(),
+        },
+        popupTemplate: popupTemplate2,
+      });
+
+      return pointGraphic5;
+    }
+
+    function SymbolMap(x, y, name) {
       const textSymbol = {
         type: "text", // autocasts as new TextSymbol()
         color: "#000",
-        fill: "simple-fill",
-        text: "\ue661", // Picture Symbol
+        text: "\ue661", //esri-icon-media
         font: {
           // autocasts as new Font()
           size: 36,
@@ -246,10 +526,19 @@ function DrawMap() {
         content: function (feature) {
           //const { OBJECTID } = feature.graphic.attributes;
           const div = document.createElement("div");
-          const img = document.createElement("img");
-          img.src = "./dist/images/1M8A9029.jpg";
-          img.classList.add("photo-image");
-          div.appendChild(img);
+          const h1 = document.createElement("h1");
+          const buttonEnquire = document.createElement("button");
+          const buttonDetails = document.createElement("button");
+          const buttonAddToFavorites = document.createElement("button");
+          h1.textContent = `Unit: ${housenumber}`;
+          buttonDetails.setAttribute("onclick", `Enquire('${name}');`);
+          buttonEnquire.textContent = "ENQUIRE";
+          buttonDetails.textContent = "DETAILS";
+          buttonAddToFavorites.textContent = "ADD TO FAVORITES";
+          div.appendChild(h1);
+          div.appendChild(buttonEnquire);
+          div.appendChild(buttonDetails);
+          div.appendChild(buttonAddToFavorites);
           return div;
         },
       };
@@ -421,4 +710,18 @@ function SideMenu() {
     iframePages.style.display = "block";
     map.style.width = "75vw";
   }
+}
+function Enquire(housenumber, size) {
+  changeSrc("./dist/pages/main/unit.html");
+  setTimeout(ChangePageContent, 1000);
+  function ChangePageContent() {
+    let iframe = document.getElementById("pages");
+    let innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    const div = innerDoc.getElementById("unitDetails");
+    div.innerHTML = "Goodbye People";
+  }
+
+  //const houseLabel = document.createElement("label");
+  //houseLabel.innerHTML = housenumber;
+  //div.appendChild= houseLabel;
 }
