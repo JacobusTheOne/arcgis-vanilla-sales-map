@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function preLoad() {
+        a1 = new Image();
+        a1.src = "./dist/images/houseImages/1M8A1727.jpg";
+        a2 = new Image();
+        a2.src = "./dist/images/houseImages/1M8A6060.jpg";
+        a3 = new Image();
+        a3.src = "./dist/images/houseImages/1M8A1727.jpg";
+      }
+      function im(image) {
+        document.getElementById(image[0]).src = eval(image + ".src");
+      }
+    </script>
+    <style>
+      /* fieldset {
+        overflow: hidden;
+      }
+ */
+      .some-class {
+        float:none;
+        clear: none;
+      }
+
+      /* label {
+        float: left;
+        clear: none;
+        display: block;
+        padding: 0px 0px 0px 0px;
+      } */
+      img {
+        width: 100vw;
+        height: auto;
+      }
+      input[type="radio"],
+      input.radio {
+        clear: none;
+        margin: 2px 0 0 0px;
+      }
+    </style>
+  </head>
+  <body onLoad="preLoad()">
+    <div style="position: absolute">
+      <img
+        id="a"
+        src="./dist/images/houseImages/1M8A1727.jpg"
+        alt=""
+      />
+    </div>
+    
+      <div
+        style="
+          position: relative;
+          text-align: center;
+          top: 100%;
+          width: 100vw;
+          height: auto;
+          transform: translateY(97%);
+          overflow: hidden;
+          justify-content: center;
+        "
+        class="some-class"
+      >
+      
+            <input
+            type="radio"
+            class="radio"
+            name="x"
+            value="y"
+            id="a1"
+            onClick="im('a1');"
+            checked
+            />
+            <input
+            type="radio"
+            class="radio"
+            name="x"
+            value="y"
+            id="a2"
+            onClick="im('a2');"
+            />
+            <input
+            type="radio"
+            class="radio"
+            name="x"
+            value="y"
+            id="a3"
+            onClick="im('a3');"
+            />
+  
+      </div>
+    </div>
+  </body>
+</html>

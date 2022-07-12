@@ -192,23 +192,7 @@ function DrawMap() {
         outFields: ["*"],
         title: "", //title,
         content: function (feature) {
-          /* const div = document.createElement("div");
-          const script = document.createElement("script");
-          script.innerHTML = `hbspt.forms.create({
-            region: "na1",
-            portalId: "5623527",
-            formId: "f915a1a7-8a5e-46f5-bf3d-ba0267c50f65",
-            onFormReady: ($form) => {
-              $form.find(
-                'input[name = "size"]'
-              ).val(${housesize}).change();
-              $form.find(
-                'input[name = "unit_number_interested"]'
-              ).val(${housenumber}).change();
-            },
-          })`;
-          return script; */
-          //!!!!!!!!!!!!!!!!!!!CHANGE HERE!!!!!!!!!!!!!!!!!!!
+          //!!!!!!!!!!!!!!!!!!!!EDIT HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!
           const price = (Math.random() * 500000 + 4500000).toFixed(2);
           const div = document.createElement("div");
           const h4HouseNumber = document.createElement("h4");
