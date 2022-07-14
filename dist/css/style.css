@@ -34,6 +34,7 @@
 
 #selectingPages {
   justify-content: center;
+  background-color: #0275d8;
 }
 
 .photo-image {
@@ -41,7 +42,7 @@
   height: auto;
 }
 
-.primary-color {
+/* .primary-color {
   background-color: #0275d8;
 }
 
@@ -51,4 +52,9 @@
 
 .primary-color:active {
   background: #66a8ff;
+  border: 2px solid #0275d8;
+}
+ */
+.no-border {
+  border: none;
 }

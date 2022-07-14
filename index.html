@@ -37,11 +37,11 @@
   <body>
     <div style="display: flex;flex-direction:row">
       <div id="selectingPages" style="width:4vw;height:100vh;display:flex;flex-direction: column;">
-        <button class="primary-color" id="defaultOpen"  onclick='changeSrc("./dist/pages/main/home.html")'><i class=" fa fa-home fa-2x"></i></button>
-        <button class="primary-color"  onclick='changeSrc("./dist/pages/main/search.html")'><i class=" fa fa-search fa-2x" aria-hidden="true"></i></button>
-        <button class="primary-color"  onclick='changeSrc("./dist/pages/main/listings.html")'><i class=" fa fa-list fa-2x" aria-hidden="true"></i></button>
-        <button class="primary-color"  onclick='changeSrc("./dist/pages/main/enquire.html")'><i class=" fa fa-envelope fa-2x" aria-hidden="true"></i></button>
-        <button class="primary-color"  onclick="SideMenu()"><i id="sideMenu" class=" fa fa-angle-double-right fa-2x" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-primary btn-sm" id="defaultOpen"  onclick='changeSrc("./dist/pages/main/home.html")'><i class="text-white fa fa-home fa-2x"></i></button>
+        <button type="button" class="btn btn-primary btn-sm"  onclick='changeSrc("./dist/pages/main/search.html")'><i class=" text-white fa fa-search fa-2x" ></i></button>
+        <button type="button" class="btn btn-primary btn-sm"  onclick='changeSrc("./dist/pages/main/listings.html")'><i class="text-white fa fa-list fa-2x" ></i></button>
+        <button type="button" class="btn btn-primary btn-sm"  onclick='changeSrc("./dist/pages/main/enquire.html")'><i class="text-white fa fa-envelope fa-2x" ></i></button>
+        <button type="button" class="btn btn-primary btn-sm"  onclick="SideMenu()"><i id="sideMenu" class="text-white fa fa-angle-double-right fa-2x" ></i></button>
       </div>
       <iframe id="pages" style="width:21vw;height:100vh;"></iframe>
       <div id="viewDiv" style="height: 100vh; width: 75vw; position: relative">
