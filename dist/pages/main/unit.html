@@ -15,23 +15,20 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <script>
-      function preLoad() {
-        a1 = new Image();
-        a1.src = "../../images/houseImages/1M8A1727.jpg";
-        a2 = new Image();
-        a2.src = "../../images/houseImages/1M8A6060.jpg";
-        a3 = new Image();
-        a3.src = "../../images/houseImages/1M8A1727.jpg";
-      }
-      function im(image) {
-        document.getElementById(image[0]).src = eval(image + ".src");
-      }
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="../../js/unitSearch.js"></script>
     <style>
       .some-class {
         float: none;
         clear: none;
+        position: absolute;
+        text-align: center;
+        top: 2.5%;
+        width: 100vw;
+        height: auto;
+        transform: translateY(15%);
+        overflow: hidden;
+        justify-content: center;
       }
       img {
         width: 100vw;
@@ -72,29 +69,23 @@
       .unit-sale-status {
         background-color: #80ffff;
       }
+      .house-images {
+        position: relative;
+      }
     </style>
     <title>Document</title>
   </head>
   <body onLoad="preLoad()">
-    <div id="unitDetails">Hello all of you!</div>
-    <section>
-      <div style="position: relative">
-        <img id="a" src="../../images/houseImages/1M8A1727.jpg" alt="" />
-      </div>
+    <section id="unitDetails">
+      <!-- <div class="house-images">
+        <img
+          id="a"
+          src="../../images/houseImages/1M8A1727.jpg"
+          alt="gallery-photo"
+        />
+      </div> -->
 
-      <div
-        style="
-          position: absolute;
-          text-align: center;
-          top: 2.5%;
-          width: 100vw;
-          height: auto;
-          transform: translateY(15%);
-          overflow: hidden;
-          justify-content: center;
-        "
-        class="some-class"
-      >
+      <!-- <div class="some-class">
         <input
           type="radio"
           class="radio"
@@ -120,19 +111,16 @@
           id="a3"
           onClick="im('a3');"
         />
-      </div>
+      </div> -->
     </section>
-    <section>
-      <div>
-        <table></table>
-      </div>
-      <section>
-        <div class="grid-three-column-container">
+    <!-- <section id="unit-specification">
+        <section id="unit-specification-sub">
+        <div id="unit-specification-sub-a" class="grid-three-column-container">
           <div class="grid-item" style="float: left">bathrooms</div>
-          <div class="grid-item" style="text-align: center" ;>bedrooms</div>
+          <div class="grid-item" style="text-align: center" >bedrooms</div>
           <div class="grid-item" style="float: right">garages</div>
         </div>
-        <div class="grid-two-column-container unit-detail">
+        <div id="unit-specification-sub-b" class="grid-two-column-container unit-detail">
           <div class="grid-item left">Unit</div>
           <div class="grid-item right">EVG247</div>
 
@@ -145,15 +133,15 @@
           <div class="grid-item left">Price</div>
           <div class="grid-item right">R,6450,000</div>
         </div>
-        <div class="grid-two-column-container unit-sale-status">
-          <div class="grid-item left available">Available</div>
-          <div class="grid-item right">
+        <div id="unit-specification-sub-c" class="grid-two-column-container unit-sale-status">
+          <div id="unit-specification-sub-c-a" class="grid-item left available">Available</div>
+          <div id="unit-specification-sub-c-b"  class="grid-item right">
             <button type="button" class="btn btn-primary">Enquire</button>
           </div>
         </div>
-      </section>
-      <div>
-        <div class="grid-two-column-container unit-detail">
+      </section> 
+      <div id="unit-specification-sub2">
+        <div id="unit-specification-sub2-a" class="grid-two-column-container unit-detail">
           <div class="grid-item left">Plan Size</div>
           <div class="grid-item right">151 sqm</div>
 
@@ -166,11 +154,11 @@
           <div class="grid-item left">Garages</div>
           <div class="grid-item right">1</div>
         </div>
-        <div class="container-fluid">
+        <div id="unit-specification-sub2-b" class="container-fluid">
           <img src="" alt="architect-plan" />
         </div>
-      </div>
-      <section class="container-fluid">
+      </div> -->
+      <!-- <section id="unit-specification-sub3" class="container-fluid">
         <h1>Description</h1>
         <p>
           Enjoy a lifestyle focused on wellness. Val de Vie Evergreen’s latest
@@ -192,8 +180,8 @@
           Wellness Farm. Enjoy the best that life has to offer in South Africa's
           safest retirement village, Val de Vie Evergreen. Study: 1
         </p>
-      </section>
-      <section class="container-fluid">
+      </section> -->
+      <section id="unit-specification-sub4" class="container-fluid">
         <script>
           hbspt.forms.create({
             region: "na1",

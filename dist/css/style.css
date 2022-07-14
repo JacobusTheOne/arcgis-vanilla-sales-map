@@ -40,3 +40,15 @@
   width: 350px;
   height: auto;
 }
+
+.primary-color {
+  background-color: #0275d8;
+}
+
+.primary-color:hover {
+  background: #0046a0;
+}
+
+.primary-color:active {
+  background: #66a8ff;
+}

@@ -67,6 +67,7 @@ function DrawMap() {
     d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
       let temp = "";
       let size = "Enquire for info.";
+      let label = "";
       for (let i = 0; i < data.length; i++) {
         temp = data[i].Status;
         if (temp != undefined) {
@@ -202,7 +203,7 @@ function DrawMap() {
           const buttonAddToFavorites = document.createElement("button");
           buttonDetails.setAttribute(
             "onclick",
-            `Enquire('${(housenumber, size)}');`
+            `Enquire('${housenumber}','${housesize}','${price}');`
           );
           buttonEnquire.setAttribute(
             "onclick",
@@ -211,8 +212,17 @@ function DrawMap() {
           h4HouseNumber.innerText = `Unit: ${housenumber}`;
           h4Price.innerText = `Price: R${price}`;
           buttonEnquire.textContent = "ENQUIRE";
+          buttonEnquire.classList.add("btn");
+          buttonEnquire.classList.add("btn-primary");
+
           buttonDetails.textContent = "DETAILS";
+          buttonDetails.classList.add("btn");
+          buttonDetails.classList.add("btn-primary");
+
           buttonAddToFavorites.textContent = "ADD TO FAVORITES";
+          buttonAddToFavorites.classList.add("btn");
+          buttonAddToFavorites.classList.add("btn-primary");
+
           div.appendChild(h4HouseNumber);
           div.appendChild(h4Price);
           div.appendChild(buttonEnquire);
@@ -488,7 +498,7 @@ function DrawMap() {
       return pointGraphic5;
     }
 
-    function SymbolMap(x, y, name) {
+    /*    function SymbolMap(x, y, name) {
       const textSymbol = {
         type: "text", // autocasts as new TextSymbol()
         color: "#000",
@@ -533,8 +543,9 @@ function DrawMap() {
       });
       return pointGraphic5;
     }
+     */
     //PHOTO POLYGON FUNCTION
-    function CreatePhotoPolygon(x, y, size, status) {
+    /*  function CreatePhotoPolygon(x, y, size, status) {
       const polygon2 = {
         type: "polygon",
         rings: convert([x, y], size, 20), //18.96529158, -33.80835267, 10
@@ -576,6 +587,7 @@ function DrawMap() {
       });
       return polygonGraphic2;
     }
+     */
   });
   //return a polygon array square of the house
   //ADD PHOTO PHOTO TO MAP
@@ -695,16 +707,18 @@ function SideMenu() {
     map.style.width = "75vw";
   }
 }
-function Enquire(housenumber, size) {
+function Enquire(housenumber, size, price) {
   changeSrc("./dist/pages/main/unit.html");
   setTimeout(ChangePageContent, 1000);
   function ChangePageContent() {
     let iframe = document.getElementById("pages");
     let innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-    const div = innerDoc.getElementById("unitDetails");
-    div.innerHTML = "Goodbye People";
+    const section = innerDoc.getElementById("unitDetails");
+    const script = document.createElement("script");
+    script.innerHTML = `ChangeUnitContent('${housenumber}','${size}','${price}');`;
+    section.appendChild(script);
+    console.log("Enquire", housenumber);
   }
-
   //const houseLabel = document.createElement("label");
   //houseLabel.innerHTML = housenumber;
   //div.appendChild= houseLabel;

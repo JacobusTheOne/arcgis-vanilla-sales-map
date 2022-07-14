@@ -37,86 +37,84 @@
   <body>
     <div style="display: flex;flex-direction:row">
       <div id="selectingPages" style="width:4vw;height:100vh;display:flex;flex-direction: column;">
-        <button id="defaultOpen"  onclick='changeSrc("./dist/pages/main/home.html")'><i class="fa fa-home fa-2x"></i></button>
-        <button  onclick='changeSrc("./dist/pages/main/search.html")'><i class="fa fa-search fa-2x" aria-hidden="true"></i></button>
-        <button  onclick='changeSrc("./dist/pages/main/listings.html")'><i class="fa fa-list fa-2x" aria-hidden="true"></i></button>
-        <button  onclick='changeSrc("./dist/pages/main/enquire.html")'><i class="fa fa-envelope fa-2x" aria-hidden="true"></i></button>
-        <button  onclick="SideMenu()"><i id="sideMenu" class="fa fa-angle-double-right fa-2x" aria-hidden="true"></i></button>
+        <button class="primary-color" id="defaultOpen"  onclick='changeSrc("./dist/pages/main/home.html")'><i class=" fa fa-home fa-2x"></i></button>
+        <button class="primary-color"  onclick='changeSrc("./dist/pages/main/search.html")'><i class=" fa fa-search fa-2x" aria-hidden="true"></i></button>
+        <button class="primary-color"  onclick='changeSrc("./dist/pages/main/listings.html")'><i class=" fa fa-list fa-2x" aria-hidden="true"></i></button>
+        <button class="primary-color"  onclick='changeSrc("./dist/pages/main/enquire.html")'><i class=" fa fa-envelope fa-2x" aria-hidden="true"></i></button>
+        <button class="primary-color"  onclick="SideMenu()"><i id="sideMenu" class=" fa fa-angle-double-right fa-2x" aria-hidden="true"></i></button>
       </div>
-      <iframe id="pages" style="width:21vw;height:100vh;" onLoad="console.log('Loaded');"></iframe>
+      <iframe id="pages" style="width:21vw;height:100vh;"></iframe>
       <div id="viewDiv" style="height: 100vh; width: 75vw; position: relative">
-      <div id="legend-container-box" class="legend-container open" style="display: flex;flex-direction: column;position: absolute;left: 0vw;width: 100px;height: 275px;background-color: rgb(255, 255, 255); z-index: 1;
+      <div id="legend-container-box" class="legend-container open" style="display:inline-flexbox;position: absolute;left: 0vw;width: fit-content;height: 275px;background-color: rgb(255, 255, 255); z-index: 1;
       border-radius: 5px; padding: 10px">
         <h3 id="legend-title" style="font-size: 13px;">Legend <span class="desktop-hide"> <img id="menu-toggle" height="15px" src="dist/images/drop-down-close.png"> </span></h3>
-        <div style="display:flex;flex-direction: row;">
-          <p style="padding: 3px 0;font-size: 11px; width: 80px;">Unreleased </p>
-          <p style="content:'\A';
+        <div style="white-space:nowrap;">
+          
+          <div style=" display:inline-block;padding: 3px 0;font-size: 11px; width: 80px;">Unreleased </div>
+        
+          <div style="
+          display:inline-block;
+          content:'\A';
             width:10px;
             height:10px;
             border-radius:50%;
             background: rgb(99, 97, 97);
-            ";
-            ></p>
+            "
+            ></div>
+          
         </div>
-        <div style=" display:flex;flex-direction: row;">
-          <p style="padding: 3px 0;font-size: 11px; width: 80px;">Available </p>
-          <p style="content:'\A';
+        <div style="white-space:nowrap;">
+          <div style="display: inline-block; padding: 3px 0;font-size: 11px; width: 80px;">Available </div>
+          <div style="
+          display: inline-block;
+          content:'\A';
             width:10px;
             height:10px;
             border-radius:50%;
             background: rgb(0, 255, 0);
-            
-          
             ";
-            ></p>
+            ></div>
         </div>
-        <div style="display:flex;flex-direction: row;">
-          <p style="padding: 3px 0;font-size: 11px; width: 80px;">Sold </p>
-          <p style="content:'\A';
+        <div style="white-space: nowrap;">
+          <div style="display: inline-block;padding: 3px 0;font-size: 11px; width: 80px;">Sold </div>
+          <div style="display: inline-block;content:'\A';
             width:10px;
             height:10px;
             border-radius:50%;
-            background: rgb(255, 0, 0);
-            
-          
+            background: rgb(255, 0, 0);     
             ";
-            ></p>
+            ></div>
         </div>
-        <div style="display:flex;flex-direction: row;">
-          <p style="padding: 3px 0;font-size: 11px; width: 80px;">Unavailable</p>
-          <p style="content:'\A';
+        <div style="white-space:nowrap">
+          <div style="display: inline-block;padding: 3px 0;font-size: 11px; width: 80px;">Unavailable</div>
+          <div style="display: inline-block;content:'\A';
             width:10px;
             height:10px;
             border-radius:50%;
             background: rgb(0,0,255);
-            
-          
             ";
-            ></p>
+            ></div>
         </div>
-        <div style="display:flex;flex-direction: row;">
-          <p style="padding: 3px 0;font-size: 11px; width: 80px;">Transferred</p>
-          <p style="content:'\A';
+        <div style="white-space:nowrap">
+
+          <div style="display: inline-block;padding: 3px 0;font-size: 11px; width: 80px;">Transferred</div>
+          <div style="display: inline-block;content:'\A';
             width:10px;
             height:10px;
             border-radius:50%;
             background: rgb(249, 105, 14);
-            
-          
             ";
-            ></p>
+            ></div>
         </div>
-        <div style="display:flex;flex-direction: row;">
-          <p style="padding: 3px 0;font-size: 11px; width: 80px;">Reserved</p>
-          <p style="content:'\A';
+        <div style="white-space:nowrap">
+          <div style="display: inline-block;padding: 3px 0;font-size: 11px; width: 80px;">Reserved</div>
+          <div style="display: inline-block;content:'\A';
             width:10px;
             height:10px;
             border-radius:50%;
             background: rgb(191, 85, 236);
-            
-          
             ";
-            ></p>
+            ></div>
         </div>
       </div>
       <div id="infoDiv" class="esri-widget">
