@@ -85,17 +85,18 @@
       let currentImage;
       $(document).ready(function () {
         $('#pages').load(function(){
+          setTimeout(SelectImages,2000);
+          function SelectImages(){
           $('#pages').contents().find('img').click(function () {
-          let originalImage = $(this).attr("src");
-          currentImage = "./dist" + originalImage.slice(5);             
-          $('#left-arrow').after(`<img id="large-image" class="enlarged-image" src=${currentImage} alt="">`);
-          on()
+            let originalImage = $(this).attr("src");
+            currentImage = "./dist" + originalImage.slice(5);             
+            $('#left-arrow').after(`<img id="large-image" class="enlarged-image" src=${currentImage} alt="">`);
+            on();
           });
-          images = $('#pages').contents().find('#gallery').children('img').map(function(){
+            images = $('#pages').contents().find('#gallery').children('img').map(function(){
             return $(this).attr('src')
             }).get();
-          
-        
+          }
         });
       });
       function NextImage(){
@@ -133,7 +134,7 @@
     <div style="display: flex;align-items: center;justify-content:center;" id="overlay">
       <button class="position-absolute-left btn btn-secondary btn-sm" onclick="PreviousImage()" id="left-arrow"><i class="fa fa-angle-left fa-2x" aria-hidden="true"></i></button>
       <button class="position-absolute-right btn btn-secondary btn-sm" onclick="NextImage()" id="right-arrow"><i class="fa fa-angle-right fa-2x" aria-hidden="true"></i></button>
-      <button class="position-absolute-top-right btn btn-danger btn-sm" onclick="off()" id="close-button"><i class="fa fa-window-close fa-2x" aria-hidden="true"></i></button>
+      <button class="position-absolute-top-right btn btn-secondary btn-sm" onclick="off()" id="close-button"><i class="fa fa-window-close fa-2x" aria-hidden="true"></i></button>
     </div>
     
     <div style="display: flex;flex-direction:row">

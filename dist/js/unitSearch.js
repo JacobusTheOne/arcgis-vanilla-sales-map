@@ -1,10 +1,13 @@
 function ChangeUnitContent(housenumber, size, price) {
   $(document).ready(function () {
     console.log("Search Unit", housenumber);
-    $("#unitDetails").append(
-      '<img id="a" src="../../images/houseImages/1M8A1727.jpg" alt="gallery-photo" />'
+    $("#unitDetails").append('<div id="gallery" class="house-images"></div>');
+    $("#gallery").append(
+      '<img id="a" src="../../images/houseImages/1M8A1727.jpg" alt="gallery-photo" />',
+      '<img  style="display: none;" id="a" src="../../images/houseImages/1M8A6060.jpg" alt="gallery-photo" />',
+      '<img style="display: none;" id="a" src="../../images/houseImages/1M8A1847.jpg" alt="gallery-photo" />'
     );
-    $("#a").wrap('<div class="house-images"></div>');
+
     $("#unitDetails").append('<div class="some-class"></div>');
     $(".some-class").append(
       `<input
