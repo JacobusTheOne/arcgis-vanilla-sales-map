@@ -1,6 +1,5 @@
 function ChangeUnitContent(housenumber, size, price) {
   $(document).ready(function () {
-    console.log("Search Unit", housenumber);
     $("#unitDetails").append('<div id="gallery" class="house-images"></div>');
     $("#gallery").append(
       '<img id="a" src="../../images/houseImages/1M8A1727.jpg" alt="gallery-photo" />',
