@@ -33,8 +33,109 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://js.arcgis.com/4.23/"></script>
     <script defer src="./dist/js/main.js"></script>
+    <style>
+      #overlay {
+        position: fixed;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 2;
+        cursor: pointer;
+      }
+      .enlarged-image {
+        width: 60%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .position-absolute-left {
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        transform: translate(-50%, -80%);
+      }
+      .position-absolute-right {
+        position: absolute;
+        top: 50%;
+        left: 90%;
+        transform: translate(-50%, -10%);
+      }
+      .position-absolute-right {
+        position: absolute;
+        top: 50%;
+        left: 90%;
+        transform: translate(-50%, -10%);
+      }
+      .position-absolute-top-right{
+        position: absolute;
+        top: 10%;
+        left: 90%;
+        transform: translate(-90%, -10%);
+      }
+    </style>
+    
+    <script>
+      let images;
+      let currentImage;
+      $(document).ready(function () {
+        $('#pages').load(function(){
+          $('#pages').contents().find('img').click(function () {
+          let originalImage = $(this).attr("src");
+          currentImage = "./dist" + originalImage.slice(5);             
+          $('#left-arrow').after(`<img id="large-image" class="enlarged-image" src=${currentImage} alt="">`);
+          on()
+          });
+          images = $('#pages').contents().find('#gallery').children('img').map(function(){
+            return $(this).attr('src')
+            }).get();
+          
+        
+        });
+      });
+      function NextImage(){
+        let indexCurrent = images.indexOf(currentImage);
+        currentImage = images[(indexCurrent + 1)%images.length];
+        if(indexCurrent == images.length-1)
+        {
+          currentImage = images[0];     
+        } else {
+          
+        }
+        console.log(currentImage)
+        SetImage(currentImage);
+      }
+      function PreviousImage(){
+        let indexCurrent = images.indexOf(currentImage);
+        if(indexCurrent == 0){
+          currentImage = images[images.length - 1]
+        } else {
+          currentImage = images[(indexCurrent - 1)%images.length];
+        }      
+        console.log(currentImage);
+        SetImage(currentImage);
+      }
+      function SetImage(image){
+        let changedImage = "./dist" + image.toString().slice(5);
+        $('#large-image').attr('src',`${changedImage}`) 
+      }
+      function RemoveOverlayElements(){
+        $('#large-image').remove()
+      }
+    </script>
   </head>
   <body>
+    <div style="display: flex;align-items: center;justify-content:center;" id="overlay">
+      <button class="position-absolute-left btn btn-secondary btn-sm" onclick="PreviousImage()" id="left-arrow"><i class="fa fa-angle-left fa-2x" aria-hidden="true"></i></button>
+      <button class="position-absolute-right btn btn-secondary btn-sm" onclick="NextImage()" id="right-arrow"><i class="fa fa-angle-right fa-2x" aria-hidden="true"></i></button>
+      <button class="position-absolute-top-right btn btn-danger btn-sm" onclick="off()" id="close-button"><i class="fa fa-window-close fa-2x" aria-hidden="true"></i></button>
+    </div>
+    
     <div style="display: flex;flex-direction:row">
       <div id="selectingPages" style="width:4vw;height:100vh;display:flex;flex-direction: column;">
         <button type="button" class="btn btn-primary btn-sm" id="defaultOpen"  onclick='changeSrc("./dist/pages/main/home.html")'><i class="text-white fa fa-home fa-2x"></i></button>
@@ -128,5 +229,16 @@
       <!-- <div id="legendDiv"></div> -->
     </div>
     </div>
+    <script>
+      function on() {
+        document.getElementById("overlay").style.display = "block";
+      }
+
+      function off() {
+        document.getElementById("overlay").style.display = "none";
+        RemoveOverlayElements();
+      }
+      off()
+    </script>
   </body>
 </html>

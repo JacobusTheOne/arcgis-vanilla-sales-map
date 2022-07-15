@@ -158,7 +158,7 @@ function DrawMap() {
     erfLayer.renderer = erfLayerRenderer;
     const graphicsSymbolLayer = new GraphicsLayer();
     graphicsSymbolLayer.add(
-      CIM_CameraSymbol(18.9666974, -33.80922, "./dist/images/1M8A9029.jpg")
+      CIM_CameraSymbol(18.9666974, -33.80922, "./dist/images/home/1M8A9029.jpg")
     );
     //graphicsSymbolLayer.add(SymbolMap(18.9666974, -33.80922, "Jakes"));
     map.add(streetLayer);
