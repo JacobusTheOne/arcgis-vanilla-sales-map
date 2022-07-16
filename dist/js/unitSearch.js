@@ -10,9 +10,9 @@ function ChangeUnitContent(
   $(document).ready(function () {
     $("#unitDetails").append('<div id="gallery" class="house-images"></div>');
     $("#gallery").append(
-      `<img id="a1" src="https://i.ibb.co/Sxxg0SK/1M8A1727.jpg" alt="1M8A1727" >`,
-      `<img style="display: none;"src="https://i.ibb.co/mS58Fd9/1M8A1847.jpg" alt="1M8A1847" >`,
-      `<img style="display: none;"src="https://i.ibb.co/6r4phXY/1M8A6060.jpg" alt="1M8A6060" >`
+      `<img id="a" src="https://i.ibb.co/Sxxg0SK/1M8A1727.jpg" alt="1M8A1727" >`,
+      `<img id="a" style="display: none;"src="https://i.ibb.co/mS58Fd9/1M8A1847.jpg" alt="1M8A1847" >`,
+      `<img  id="a"style="display: none;"src="https://i.ibb.co/6r4phXY/1M8A6060.jpg" alt="1M8A6060" >`
     );
 
     $("#unitDetails").append('<div class="some-class"></div>');
