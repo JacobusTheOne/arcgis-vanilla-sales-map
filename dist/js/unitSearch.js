@@ -1,10 +1,18 @@
-function ChangeUnitContent(housenumber, size, price) {
+function ChangeUnitContent(
+  housenumber,
+  size,
+  price,
+  bedrooms,
+  bathrooms,
+  garages,
+  propertyType
+) {
   $(document).ready(function () {
     $("#unitDetails").append('<div id="gallery" class="house-images"></div>');
     $("#gallery").append(
-      '<img id="a" src="../../images/houseImages/1M8A1727.jpg" alt="gallery-photo" />',
-      '<img  style="display: none;" id="a" src="../../images/houseImages/1M8A6060.jpg" alt="gallery-photo" />',
-      '<img style="display: none;" id="a" src="../../images/houseImages/1M8A1847.jpg" alt="gallery-photo" />'
+      `<img id="a1" src="https://i.ibb.co/Sxxg0SK/1M8A1727.jpg" alt="1M8A1727" >`,
+      `<img style="display: none;"src="https://i.ibb.co/mS58Fd9/1M8A1847.jpg" alt="1M8A1847" >`,
+      `<img style="display: none;"src="https://i.ibb.co/6r4phXY/1M8A6060.jpg" alt="1M8A6060" >`
     );
 
     $("#unitDetails").append('<div class="some-class"></div>');
@@ -45,9 +53,18 @@ function ChangeUnitContent(housenumber, size, price) {
       `<div id="unit-specification-sub-a" class="grid-three-column-container"></div>`
     );
     $(`#unit-specification-sub-a`).append(
-      `<div class="grid-item" style="float: left">bathrooms</div>`,
-      `<div class="grid-item" style="text-align: center" >bedrooms</div>`,
-      `<div class="grid-item" style="float: right">garages</div>`
+      `<div class="grid-item bathroom" style="float: left"></div>`,
+      `<div class="grid-item bedroom" style="text-align: center" ></div>`,
+      `<div class="grid-item garage" style="float: right"></div>`
+    );
+    $(`.bathroom`).append(
+      `<i class="fa fa-bath lg" aria-hidden="true">  ${bathrooms}</i>`
+    );
+    $(`.bedroom`).append(
+      `<i class="fa fa-bed lg" aria-hidden="true">  ${bedrooms}</i>`
+    );
+    $(`.garage`).append(
+      `<i class="fa fa-car lg" aria-hidden="true">  ${garages}</i>`
     );
     $("#unit-specification-sub").append(
       `<div id="unit-specification-sub-b" class="grid-two-column-container unit-detail"></div>`
@@ -56,12 +73,16 @@ function ChangeUnitContent(housenumber, size, price) {
       `<div class="grid-item left">Unit</div>`,
       `<div class="grid-item right">${housenumber}</div>`,
       `<div class="grid-item left">Unit Type</div>`,
-      `<div class="grid-item right">House</div>`,
+      `<div class="grid-item right">${propertyType}</div>`,
       `<div class="grid-item left">Floor</div>`,
-      `<div class="grid-item right">Ground Floor</div>`,
-      `<div class="grid-item left">Price</div>`,
-      `<div class="grid-item right">R${price}</div>`
+      `<div class="grid-item right">Ground Floor</div>`
     );
+    if (parseInt(price) > 0) {
+      $(`#unit-specification-sub-b`).append(
+        `<div class="grid-item left">Price</div>`,
+        `<div class="grid-item right">R${price}</div>`
+      );
+    }
     $(`#unit-specification-sub`).append(
       `<div id="unit-specification-sub-c" class="grid-two-column-container unit-sale-status"></div>`
     );
@@ -83,11 +104,11 @@ function ChangeUnitContent(housenumber, size, price) {
       `<div class="grid-item left">Plan Size</div>`,
       `<div class="grid-item right">${size} sqm</div>`,
       `<div class="grid-item left">Bedrooms</div>`,
-      `<div class="grid-item right">2</div>`,
+      `<div class="grid-item right">${bedrooms}</div>`,
       `<div class="grid-item left">Bathrooms</div>`,
-      `<div class="grid-item right">2</div>`,
+      `<div class="grid-item right">${bathrooms}</div>`,
       `<div class="grid-item left">Garages</div>`,
-      `<div class="grid-item right">1</div>`
+      `<div class="grid-item right">${garages}</div>`
     );
     $(`#unit-specification-sub2`).append(
       `<div id="unit-specification-sub2-b" class="container-fluid"></div>`
@@ -126,11 +147,11 @@ function ChangeUnitContent(housenumber, size, price) {
 
 function preLoad() {
   a1 = new Image();
-  a1.src = "../../images/houseImages/1M8A1727.jpg";
+  a1.src = "https://i.ibb.co/Sxxg0SK/1M8A1727.jpg";
   a2 = new Image();
-  a2.src = "../../images/houseImages/1M8A6060.jpg";
+  a2.src = "https://i.ibb.co/mS58Fd9/1M8A1847.jpg";
   a3 = new Image();
-  a3.src = "../../images/houseImages/1M8A1847.jpg";
+  a3.src = "https://i.ibb.co/6r4phXY/1M8A6060.jpg";
 }
 function im(image) {
   document.getElementById(image[0]).src = eval(image + ".src");

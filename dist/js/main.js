@@ -63,11 +63,17 @@ function DrawMap() {
 
     d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
       let temp = "";
-      let size = "Enquire for info.";
-      let label = "";
+      let size = "0";
+      let price = "0";
+      let bathrooms = "0";
+      let bedrooms = "0";
+      let garages = "0";
+      let label = "0";
+      let propertyType = "House";
+      let houseTempStatus;
       for (let i = 0; i < data.length; i++) {
         temp = data[i].Status;
-        if (temp != undefined) {
+        if (temp != "") {
           temp = temp.toUpperCase();
         }
         if (temp == "UNRELEASED") {
@@ -83,18 +89,40 @@ function DrawMap() {
         } else {
           houseTempStatus = houseStatus.Other;
         }
-        if (data[i].Size !== "") {
+        if (data[i].Size != "") {
           size = data[i].Size;
         }
+        if (data[i].PriceVAT != "") {
+          price = data[i].PriceVAT;
+        }
+        if (data[i].Bathrooms != "") {
+          bathrooms = data[i].Bathrooms;
+        }
+        if (data[i].Bedrooms != "") {
+          bedrooms = data[i].Bedrooms;
+        }
+        if (data[i].Garages != "") {
+          garages = data[i].Garages;
+        }
+        if (data[i].PropertyType != "") {
+          propertyType = data[i].PropertyType;
+        }
+        let housenumber = data[i].Label;
+        let title = data[i].Label;
         graphicsLayer.add(
           CreateHousePolygon(
             parseFloat(data[i].Longitude),
             parseFloat(data[i].Latitude),
             7,
             houseTempStatus,
-            data[i].Label,
-            data[i].Label,
-            size
+            title,
+            housenumber,
+            size,
+            price,
+            bathrooms,
+            bedrooms,
+            garages,
+            propertyType
           )
         );
       }
@@ -134,7 +162,7 @@ function DrawMap() {
     const dotLyaer = new FeatureLayer({
       url: "https://services5.arcgis.com/WPkXI1mQdYLzFttB/arcgis/rest/services/Greater_VdV_Addresses/FeatureServer/0",
 
-      labelingInfo: [], //[valdevieLabels],
+      labelingInfo: [], //[valdevieLabels], //!!!!!!!!!!!!!!!!!!!!IF YOU WANT NO LABELS!!!!!!!!!!!!
     });
     dotLyaer.opacity = 0;
 
@@ -170,7 +198,12 @@ function DrawMap() {
       status,
       title,
       housenumber = "300",
-      housesize = "50"
+      housesize = "50",
+      price,
+      bathrooms,
+      bedrooms,
+      garages,
+      propertyType
     ) {
       const polygon2 = {
         type: "polygon",
@@ -191,7 +224,7 @@ function DrawMap() {
         title: "", //title,
         content: function (feature) {
           //!!!!!!!!!!!!!!!!!!!!EDIT HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          const price = (Math.random() * 500000 + 4500000).toFixed(2);
+
           const div = document.createElement("div");
           const h4HouseNumber = document.createElement("h4");
           const h4Price = document.createElement("h4");
@@ -200,7 +233,7 @@ function DrawMap() {
           const buttonAddToFavorites = document.createElement("button");
           buttonDetails.setAttribute(
             "onclick",
-            `Enquire('${housenumber}','${housesize}','${price}');`
+            `Enquire('${housenumber}','${housesize}','${price}','${bedrooms}','${bathrooms}','${garages}','${propertyType}');`
           );
           buttonEnquire.setAttribute(
             "onclick",
@@ -709,7 +742,15 @@ function changeSrc(loc) {
   document.getElementById("pages").src = loc;
 }
 
-function Enquire(housenumber, size, price) {
+function Enquire(
+  housenumber,
+  size,
+  price,
+  bedrooms,
+  bathrooms,
+  garages,
+  propertyType
+) {
   changeSrc("./dist/pages/main/unit.html");
   setTimeout(ChangePageContent, 1000);
   function ChangePageContent() {
@@ -717,7 +758,7 @@ function Enquire(housenumber, size, price) {
     let innerDoc = iframe.contentDocument || iframe.contentWindow.document;
     const section = innerDoc.getElementById("unitDetails");
     const script = document.createElement("script");
-    script.innerHTML = `ChangeUnitContent('${housenumber}','${size}','${price}');`;
+    script.innerHTML = `ChangeUnitContent('${housenumber}','${size}','${price}','${bedrooms}','${bathrooms}','${garages}','${propertyType}');`;
     section.appendChild(script);
     console.log("Enquire", housenumber);
   }
