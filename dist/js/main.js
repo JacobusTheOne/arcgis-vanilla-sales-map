@@ -1,7 +1,4 @@
-function changeSrc(loc) {
-  document.getElementById("pages").src = loc;
-}
-
+let currentLocation;
 function DrawMap() {
   require([
     "esri/config",
@@ -707,6 +704,11 @@ function SideMenu() {
     map.style.width = "75vw";
   }
 }
+function changeSrc(loc) {
+  currentLocation = loc;
+  document.getElementById("pages").src = loc;
+}
+
 function Enquire(housenumber, size, price) {
   changeSrc("./dist/pages/main/unit.html");
   setTimeout(ChangePageContent, 1000);
