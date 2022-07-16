@@ -89,7 +89,7 @@
           function SelectImages(){
           $('#pages').contents().find('img').click(function () {
             let originalImage = $(this).attr("src");
-            currentImage = "./dist" + originalImage.slice(5);             
+            currentImage = originalImage//"./dist" + originalImage.slice(5);             
             $('#left-arrow').after(`<img id="large-image" class="enlarged-image" src=${currentImage} alt="">`);
             on();
           });
@@ -122,7 +122,7 @@
         SetImage(currentImage);
       }
       function SetImage(image){
-        let changedImage = "./dist" + image.toString().slice(5);
+        let changedImage = image//"./dist" + image.toString().slice(5);
         $('#large-image').attr('src',`${changedImage}`) 
       }
       function RemoveOverlayElements(){
@@ -230,6 +230,103 @@
       <!-- <div id="legendDiv"></div> -->
     </div>
     </div>
+    <!-- PRELOAD IMAGE CONTENT SEE IF IT IS SPEEDIER -->
+    <!-- <div style="display: none;">
+      <div id="la_vueII">
+        <h4 class="h4">Gallery</h4>
+        <img
+          src="../../images/la_vueii/1M8A2375.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/1M8A2829.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/1M8A5546.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/1M8A7061.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/1M8A7063.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/1M8A7070.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/DJI_0234.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/DJI_0235.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/DJI_0237.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/DJI_0241.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/DJI_0242.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/DJI_0243.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/DJI_0244.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/DJI_0246.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/DJI_0247.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/DJI_0248.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/DJI_0249.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+        <img
+          src="../../images/la_vueii/DJI_0251.jpg"
+          alt="relaxing pictures of Le Domaine"
+          class="image-in-iframe"
+        />
+      </div>
+    </div> -->
+    <!-- END -->
     <script>
       function on() {
         document.getElementById("overlay").style.display = "block";
