@@ -71,6 +71,7 @@ function DrawMap() {
       let label = "0";
       let propertyType = "House";
       let houseTempStatus;
+      let houseStatusString = "";
       for (let i = 0; i < data.length; i++) {
         temp = data[i].Status;
         if (temp != "") {
@@ -78,16 +79,22 @@ function DrawMap() {
         }
         if (temp == "UNRELEASED") {
           houseTempStatus = houseStatus.Unreleased;
+          houseStatusString = "unreleased";
         } else if (temp == "AVAILABLE") {
           houseTempStatus = houseStatus.Available;
+          houseStatusString = "available";
         } else if (temp == "SOLD") {
           houseTempStatus = houseStatus.Sold;
+          houseStatusString = "sold";
         } else if (temp == "TRANSFERRED") {
           houseTempStatus = houseStatus.Transferred;
+          houseStatusString = "transferred";
         } else if (temp == "RESERVED") {
           houseTempStatus = houseStatus.Reserved;
+          houseStatusString = "reserved";
         } else {
           houseTempStatus = houseStatus.Other;
+          houseStatusString = "other";
         }
         if (data[i].Size != "") {
           size = data[i].Size;
@@ -122,7 +129,8 @@ function DrawMap() {
             bathrooms,
             bedrooms,
             garages,
-            propertyType
+            propertyType,
+            houseStatusString
           )
         );
       }
@@ -203,7 +211,8 @@ function DrawMap() {
       bathrooms,
       bedrooms,
       garages,
-      propertyType
+      propertyType,
+      houseStatusString
     ) {
       const polygon2 = {
         type: "polygon",
@@ -233,7 +242,7 @@ function DrawMap() {
           const buttonAddToFavorites = document.createElement("button");
           buttonDetails.setAttribute(
             "onclick",
-            `Enquire('${housenumber}','${housesize}','${price}','${bedrooms}','${bathrooms}','${garages}','${propertyType}');`
+            `Enquire('${housenumber}','${housesize}','${price}','${houseStatusString}','${bedrooms}','${bathrooms}','${garages}','${propertyType}');`
           );
           buttonEnquire.setAttribute(
             "onclick",
@@ -254,7 +263,9 @@ function DrawMap() {
           buttonAddToFavorites.classList.add("btn-primary");
 
           div.appendChild(h4HouseNumber);
-          div.appendChild(h4Price);
+          if (parseInt(price) > 0) {
+            div.appendChild(h4Price);
+          }
           div.appendChild(buttonEnquire);
           div.appendChild(buttonDetails);
           div.appendChild(buttonAddToFavorites);
@@ -500,7 +511,7 @@ function DrawMap() {
 
       const popupTemplate2 = {
         outFields: ["*"],
-        defaultPopupTemplateEnabled: true,
+        defaultPopupTemplateEnabled: false,
         title: "", //title,
         content: function (feature) {
           const div = document.createElement("div");
@@ -746,6 +757,7 @@ function Enquire(
   housenumber,
   size,
   price,
+  status,
   bedrooms,
   bathrooms,
   garages,
@@ -758,9 +770,8 @@ function Enquire(
     let innerDoc = iframe.contentDocument || iframe.contentWindow.document;
     const section = innerDoc.getElementById("unitDetails");
     const script = document.createElement("script");
-    script.innerHTML = `ChangeUnitContent('${housenumber}','${size}','${price}','${bedrooms}','${bathrooms}','${garages}','${propertyType}');`;
+    script.innerHTML = `ChangeUnitContent('${housenumber}','${size}','${price}','${status}','${bedrooms}','${bathrooms}','${garages}','${propertyType}');`;
     section.appendChild(script);
-    console.log("Enquire", housenumber);
   }
   //const houseLabel = document.createElement("label");
   //houseLabel.innerHTML = housenumber;

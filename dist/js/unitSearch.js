@@ -1,12 +1,27 @@
+const houseStatus = {
+  Unreleased: [99, 97, 97], //dark grey
+
+  Sold: [255, 0, 0], //red
+
+  Available: [0, 255, 0], //green
+
+  Other: [0, 0, 255], //blue
+
+  Transferred: [249, 105, 14], //orange
+
+  Reserved: [191, 85, 236], //purple
+};
 function ChangeUnitContent(
   housenumber,
   size,
   price,
+  houseStatusString,
   bedrooms,
   bathrooms,
   garages,
   propertyType
 ) {
+  console.log(houseStatusString);
   $(document).ready(function () {
     $("#unitDetails").append('<div id="gallery" class="house-images"></div>');
     $("#gallery").append(
@@ -86,9 +101,36 @@ function ChangeUnitContent(
     $(`#unit-specification-sub`).append(
       `<div id="unit-specification-sub-c" class="grid-two-column-container unit-sale-status"></div>`
     );
-    $(`#unit-specification-sub-c`).append(
-      `<div id="unit-specification-sub-c-a" class="grid-item left available">Available</div>`
-    );
+    if (houseStatusString == "available") {
+      $(`#unit-specification-sub-c`).append(
+        `<div  id="unit-specification-sub-c-a" class="grid-item left available">Available</div>`
+      );
+    }
+    if (houseStatusString == "sold") {
+      $(`#unit-specification-sub-c`).append(
+        `<div  id="unit-specification-sub-c-a " class="grid-item left sold">Sold</div>`
+      );
+    }
+    if (houseStatusString == "unreleased") {
+      $(`#unit-specification-sub-c`).append(
+        `<div  id="unit-specification-sub-c-a " class="grid-item left unreleased">Unreleased</div>`
+      );
+    }
+    if (houseStatusString == "reserved") {
+      $(`#unit-specification-sub-c`).append(
+        `<divid="unit-specification-sub-c-a " class="grid-item left reserved">Reserved</divid=>`
+      );
+    }
+    if (houseStatusString == "other") {
+      $(`#unit-specification-sub-c`).append(
+        `<div id="unit-specification-sub-c-a " class="grid-item left other">Unavailable</div>`
+      );
+    }
+    if (houseStatusString == "transferred") {
+      $(`#unit-specification-sub-c`).append(
+        `<div  id="unit-specification-sub-c-a " class="grid-item left transferred">Transferred</div>`
+      );
+    }
     $(`#unit-specification-sub-c`).append(
       `<div id="unit-specification-sub-c-b"  class="grid-item right"></div>`
     );
