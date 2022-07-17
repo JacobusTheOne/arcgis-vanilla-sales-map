@@ -65,22 +65,28 @@ function ChangeUnitContent(
       "<section id='unit-specification-sub'></section>"
     );
     $(`#unit-specification-sub`).append(
-      `<div id="unit-specification-sub-a" class="grid-three-column-container"></div>`
+      `<div id="unit-specification-sub-a" class="grid-one-column-container"></div>`
     );
-    $(`#unit-specification-sub-a`).append(
-      `<div class="grid-item bathroom" style="float: left"></div>`,
-      `<div class="grid-item bedroom" style="text-align: center" ></div>`,
-      `<div class="grid-item garage" style="float: right"></div>`
-    );
-    $(`.bathroom`).append(
-      `<i class="fa fa-bath lg" aria-hidden="true">  ${bathrooms}</i>`
-    );
-    $(`.bedroom`).append(
-      `<i class="fa fa-bed lg" aria-hidden="true">  ${bedrooms}</i>`
-    );
-    $(`.garage`).append(
-      `<i class="fa fa-car lg" aria-hidden="true">  ${garages}</i>`
-    );
+    /* $(`#unit-specification-sub-a`).append(
+      `<div class="grid-item bathroom" ></div>`,
+      `<div class="grid-item bedroom"  ></div>`,
+      `<div class="grid-item garage" ></div>`
+    ); */
+    if (parseInt(bathrooms) > 0) {
+      $(`#unit-specification-sub-a`).append(
+        `<i class="fa fa-bath lg" aria-hidden="true">  ${bathrooms}</i>`
+      );
+    }
+    if (parseInt(bedrooms) > 0) {
+      $(`#unit-specification-sub-a`).append(
+        `<i class="fa fa-bed lg" aria-hidden="true">  ${bedrooms}</i>`
+      );
+    }
+    if (parseInt(garages) > 0) {
+      $(`#unit-specification-sub-a`).append(
+        `<i class="fa fa-car lg" aria-hidden="true">  ${garages}</i>`
+      );
+    }
     $("#unit-specification-sub").append(
       `<div id="unit-specification-sub-b" class="grid-two-column-container unit-detail"></div>`
     );
@@ -142,21 +148,35 @@ function ChangeUnitContent(
     $(`#unit-specification-sub2`).append(
       `<div id="unit-specification-sub2-a" class="grid-two-column-container unit-detail"></div>`
     );
-    $(`#unit-specification-sub2-a`).append(
-      `<div class="grid-item left">Plan Size</div>`,
-      `<div class="grid-item right">${size} sqm</div>`,
-      `<div class="grid-item left">Bedrooms</div>`,
-      `<div class="grid-item right">${bedrooms}</div>`,
-      `<div class="grid-item left">Bathrooms</div>`,
-      `<div class="grid-item right">${bathrooms}</div>`,
-      `<div class="grid-item left">Garages</div>`,
-      `<div class="grid-item right">${garages}</div>`
-    );
+    if (parseInt(size) > 0) {
+      $(`#unit-specification-sub2-a`).append(
+        `<div class="grid-item left">Plan Size</div>`,
+        `<div class="grid-item right">${size} sqm</div>`
+      );
+    }
+    if (parseInt(bedrooms) > 0) {
+      $(`#unit-specification-sub2-a`).append(
+        `<div class="grid-item left">Bedrooms</div>`,
+        `<div class="grid-item right">${bedrooms}</div>`
+      );
+    }
+    if (parseInt(bathrooms) > 0) {
+      $(`#unit-specification-sub2-a`).append(
+        `<div class="grid-item left">Bathrooms</div>`,
+        `<div class="grid-item right">${bathrooms}</div>`
+      );
+    }
+    if (parseInt(garages) > 0) {
+      $(`#unit-specification-sub2-a`).append(
+        `<div class="grid-item left">Garages</div>`,
+        `<div class="grid-item right">${garages}</div>`
+      );
+    }
     $(`#unit-specification-sub2`).append(
       `<div id="unit-specification-sub2-b" class="container-fluid"></div>`
     );
     $(`#unit-specification-sub2-b`).append(
-      `<img src="" alt="architect-plan" />`
+      `<img src="https://i.ibb.co/FYJDCz3/F2-148sqm.png" alt="F2-148sqm" />`
     );
     $(`#unit-specification`).append(
       `<section id="unit-specification-sub3" class="container-fluid"></section>`
