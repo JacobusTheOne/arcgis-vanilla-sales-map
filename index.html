@@ -96,6 +96,15 @@
             images = $('#pages').contents().find('#gallery').children('img').map(function(){
             return $(this).attr('src')
             }).get();
+              /* $('#pages').contents().find('#gallery').children('img').click(function () {
+              let originalImage = $(this).attr("src");
+              currentImage = originalImage//"./dist" + originalImage.slice(5);             
+              $('#left-arrow').after(`<img id="large-image" class="enlarged-image" src=${currentImage} alt="">`);
+              on();
+            });
+            images = $('#pages').contents().find('#gallery').children('img').map(function(){
+            return $(this).attr('src')
+            }).get(); */
           }
         });
       });

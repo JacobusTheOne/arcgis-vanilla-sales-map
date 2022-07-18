@@ -23,9 +23,8 @@ function ChangeUnitContent(
   propertyType,
   housePhotos
 ) {
-  let housePhotosArray = HousePhotosArray(housePhotos);
+  let housePhotosArray = HousePhotosArray(housePhotos, preLoad);
   $(document).ready(function () {
-    preLoad(housePhotosArray);
     $("#unitDetails").append('<div id="gallery" class="house-images"></div>');
     for (let i = 0; i < housePhotosArray.length; i++) {
       if (i == 0) {
@@ -34,7 +33,7 @@ function ChangeUnitContent(
         );
       } else {
         $("#gallery").append(
-          `<img id="a" style="display: none;"src=${housePhotosArray} alt="1M8A1847" >`
+          `<img id="a" style="display: none;"src=${housePhotosArray[i]} alt="1M8A1847" >`
         );
       }
     }
@@ -233,17 +232,21 @@ function ChangeUnitContent(
   });
 }
 
-function preLoad(housePhotosArray) {
-  for (let i = 0; i < housePhotosArray.length; i++) {
-    eval(`a${i} = new Image()`);
-    eval(`a${i}.src = ${housePhotosArray[i]}`);
-  }
-}
 function im(image) {
   document.getElementById(image[0]).src = eval(image + ".src");
 }
 
-function HousePhotosArray(houseString) {
+function HousePhotosArray(houseString, PreLoad) {
   let photosSrcArray = houseString.split("|");
+  console.log(photosSrcArray);
+  PreLoad(photosSrcArray);
   return photosSrcArray;
+}
+
+function preLoad(housePhotosArray) {
+  for (let i = 0; i < housePhotosArray.length; i++) {
+    eval(`a${i}` + "= " + "new Image()");
+    let temp = eval(`a${i}`);
+    temp.src = housePhotosArray[i];
+  }
 }
