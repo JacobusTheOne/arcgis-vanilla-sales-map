@@ -11,6 +11,7 @@ const houseStatus = {
 
   Reserved: [191, 85, 236], //purple
 };
+
 function ChangeUnitContent(
   housenumber,
   size,
@@ -19,19 +20,44 @@ function ChangeUnitContent(
   bedrooms,
   bathrooms,
   garages,
-  propertyType
+  propertyType,
+  housePhotos
 ) {
-  console.log(houseStatusString);
+  let housePhotosArray = HousePhotosArray(housePhotos);
   $(document).ready(function () {
+    preLoad(housePhotosArray);
     $("#unitDetails").append('<div id="gallery" class="house-images"></div>');
-    $("#gallery").append(
+    for (let i = 0; i < housePhotosArray.length; i++) {
+      if (i == 0) {
+        $("#gallery").append(
+          `<img id="a" src=${housePhotosArray[i]} alt="1M8A1727" >`
+        );
+      } else {
+        $("#gallery").append(
+          `<img id="a" style="display: none;"src=${housePhotosArray} alt="1M8A1847" >`
+        );
+      }
+    }
+    /* $("#gallery").append(
       `<img id="a" src="https://i.ibb.co/Sxxg0SK/1M8A1727.jpg" alt="1M8A1727" >`,
       `<img id="a" style="display: none;"src="https://i.ibb.co/mS58Fd9/1M8A1847.jpg" alt="1M8A1847" >`,
       `<img  id="a"style="display: none;"src="https://i.ibb.co/6r4phXY/1M8A6060.jpg" alt="1M8A6060" >`
-    );
-
+    ); */
     $("#unitDetails").append('<div class="some-class"></div>');
-    $(".some-class").append(
+    for (let i = 0; i < housePhotosArray.length; i++) {
+      $(".some-class").append(
+        `<input
+      type="radio"
+      class="radio"
+      name="x"
+      value="y"
+      id="a${i}"
+      onClick="im('a${i}');"
+      checked
+    />`
+      );
+    }
+    /* $(".some-class").append(
       `<input
     type="radio"
     class="radio"
@@ -59,7 +85,7 @@ function ChangeUnitContent(
     id="a3"
     onClick="im('a3');"
   />`
-    );
+    ); */
     $("#unitDetails").after('<section id="unit-specification"></section>');
     $("#unit-specification").append(
       "<section id='unit-specification-sub'></section>"
@@ -207,14 +233,17 @@ function ChangeUnitContent(
   });
 }
 
-function preLoad() {
-  a1 = new Image();
-  a1.src = "https://i.ibb.co/Sxxg0SK/1M8A1727.jpg";
-  a2 = new Image();
-  a2.src = "https://i.ibb.co/mS58Fd9/1M8A1847.jpg";
-  a3 = new Image();
-  a3.src = "https://i.ibb.co/6r4phXY/1M8A6060.jpg";
+function preLoad(housePhotosArray) {
+  for (let i = 0; i < housePhotosArray.length; i++) {
+    eval(`a${i} = new Image()`);
+    eval(`a${i}.src = ${housePhotosArray[i]}`);
+  }
 }
 function im(image) {
   document.getElementById(image[0]).src = eval(image + ".src");
+}
+
+function HousePhotosArray(houseString) {
+  let photosSrcArray = houseString.split("|");
+  return photosSrcArray;
 }

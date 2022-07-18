@@ -72,6 +72,7 @@ function DrawMap() {
       let propertyType = "House";
       let houseTempStatus;
       let houseStatusString = "";
+      let housePhotos = "0";
       for (let i = 0; i < data.length; i++) {
         temp = data[i].Status;
         if (temp != "") {
@@ -114,6 +115,9 @@ function DrawMap() {
         if (data[i].PropertyType != "") {
           propertyType = data[i].PropertyType;
         }
+        if (data[i].Photos != "") {
+          housePhotos = data[i].Photos;
+        }
         let housenumber = data[i].Label;
         let title = data[i].Label;
         graphicsLayer.add(
@@ -130,7 +134,8 @@ function DrawMap() {
             bedrooms,
             garages,
             propertyType,
-            houseStatusString
+            houseStatusString,
+            housePhotos
           )
         );
       }
@@ -216,7 +221,8 @@ function DrawMap() {
       bedrooms,
       garages,
       propertyType,
-      houseStatusString
+      houseStatusString,
+      housePhotos
     ) {
       const polygon2 = {
         type: "polygon",
@@ -246,7 +252,7 @@ function DrawMap() {
           const buttonAddToFavorites = document.createElement("button");
           buttonDetails.setAttribute(
             "onclick",
-            `Enquire('${housenumber}','${housesize}','${price}','${houseStatusString}','${bedrooms}','${bathrooms}','${garages}','${propertyType}');`
+            `Enquire('${housenumber}','${housesize}','${price}','${houseStatusString}','${bedrooms}','${bathrooms}','${garages}','${propertyType}','${housePhotos}');`
           );
           buttonEnquire.setAttribute(
             "onclick",
@@ -765,7 +771,8 @@ function Enquire(
   bedrooms,
   bathrooms,
   garages,
-  propertyType
+  propertyType,
+  housePhotos
 ) {
   changeSrc("./dist/pages/main/unit.html");
   setTimeout(ChangePageContent, 1000);
@@ -774,7 +781,7 @@ function Enquire(
     let innerDoc = iframe.contentDocument || iframe.contentWindow.document;
     const section = innerDoc.getElementById("unitDetails");
     const script = document.createElement("script");
-    script.innerHTML = `ChangeUnitContent('${housenumber}','${size}','${price}','${status}','${bedrooms}','${bathrooms}','${garages}','${propertyType}');`;
+    script.innerHTML = `ChangeUnitContent('${housenumber}','${size}','${price}','${status}','${bedrooms}','${bathrooms}','${garages}','${propertyType}','${housePhotos}');`;
     section.appendChild(script);
   }
   //const houseLabel = document.createElement("label");
