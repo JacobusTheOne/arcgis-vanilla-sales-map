@@ -760,7 +760,7 @@ function SideMenu() {
 }
 function changeSrc(loc) {
   currentLocation = loc;
-  document.getElementById("pages").src = loc;
+  window.parent.document.getElementById("pages").src = loc; //change this
 }
 
 function Enquire(
@@ -787,4 +787,179 @@ function Enquire(
   //const houseLabel = document.createElement("label");
   //houseLabel.innerHTML = housenumber;
   //div.appendChild= houseLabel;
+}
+///////////////////////////FOR SALE SEARCH AND UNIT SEARCH START
+//for Sale form submission
+//for Sale form submission
+function StartForSale() {
+  $("#pages")
+    .contents()
+    .find("#for-sale")
+    .submit(function (event) {
+      ForSale($(this).serializeArray());
+      event.preventDefault();
+    });
+}
+//unit search form submission
+$("#unit-search").submit(function (event) {
+  console.log($(this).serializeArray());
+  event.preventDefault();
+});
+const priceRange = {
+  min: 0,
+  max: 0,
+};
+const bedroomRange = {
+  min: 0,
+  max: 0,
+};
+const bathroomRange = {
+  min: 0,
+  max: 0,
+};
+function changeSrc(loc) {
+  currentLocation = loc;
+  window.parent.document.getElementById("pages").src = loc; //change this
+}
+function ForSale(jsonObject) {
+  const ForSaleObject = {
+    estates: "0",
+    "property-type-any": "0",
+    "property-type-house": "0",
+    "property-type-apartment": "0",
+    "property-type-estate": "0",
+    "price-range-value": "0",
+    "bedroom-range-value": "0",
+    "bathroom-range-value": "0",
+  };
+  changeSrc("../../dist/pages/areas/searchResults.html");
+  setTimeout(() => {
+    let iframe = document.getElementById("pages");
+    let innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    let body = innerDoc.getElementById("main");
+    $(body).append(`<div id="main-table"></div>`);
+
+    $("#pages")
+      .contents()
+      .find("#main-table")
+      .append('<table id="main-table"></table>');
+    $("#pages").contents().find("#main-table").append("<tbody></tbody>");
+    $("#pages")
+      .contents()
+      .find("#main-table")
+      .find("tbody")
+      .append("<tr></tr>");
+    $("#pages")
+      .contents()
+      .find("#main-table")
+      .find("tr")
+      .append(
+        "<th>Unit</th>",
+        "<th>Type</th>",
+        "<th>Size sqm</th>",
+        "<th>Price</th>"
+      );
+
+    jsonObject.forEach((item) => {
+      ForSaleObject[item.name] = item.value;
+    });
+    //console.log(ForSaleObject);
+    priceRange.min = parseInt(
+      ForSaleObject["price-range-value"].split(" - ").at(0).slice(1)
+    );
+    priceRange.max = parseInt(
+      ForSaleObject["price-range-value"].split(" - ").at(1).slice(1)
+    );
+    bedroomRange.min = parseInt(
+      ForSaleObject["bedroom-range-value"].split(" - ").at(0)
+    );
+    bedroomRange.max = parseInt(
+      ForSaleObject["bedroom-range-value"].split(" - ").at(1)
+    );
+    bathroomRange.min = parseInt(
+      ForSaleObject["bathroom-range-value"].split(" - ").at(0)
+    );
+    bathroomRange.max = parseInt(
+      ForSaleObject["bathroom-range-value"].split(" - ").at(1)
+    );
+    d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
+      let temp;
+      for (let i = 0; i < data.length; i++) {
+        temp = data[i].PropertyType.toLowerCase();
+        console.log(data[i].Precinct);
+        if (
+          priceRange.min <= parseInt(data[i].PriceVAT) &&
+          priceRange.max >= parseInt(data[i].PriceVAT) &&
+          bedroomRange.min <= parseInt(data[i].Bedrooms) &&
+          bedroomRange.max >= parseInt(data[i].Bedrooms) &&
+          bathroomRange.min <= parseInt(data[i].Bathrooms) &&
+          bathroomRange.max >= parseInt(data[i].Bathrooms)
+        ) {
+          //console.log(data[i]);
+          //console.log(temp);
+          if (
+            (temp == "house" || temp == "stand" || temp == "building") &&
+            ForSaleObject["property-type-any"] != "0"
+          ) {
+            //console.log(data[i]);
+            $("#pages")
+              .contents()
+              .find("tbody")
+              .append("<tr></tr>")
+              .append(
+                `<td>${data[i].Label}</td>`,
+                `<td>${data[i].PropertyType}</td>`,
+                `<td>${data[i].Size}</td>`,
+                `<td>${data[i].PriceVAT}</td>`
+              );
+          } else if (
+            (temp == "house" || temp == "stand" || temp == "building") &&
+            ForSaleObject["property-type-house"] != "0"
+          ) {
+            console.log(data[i]);
+            $("#pages")
+              .contents()
+              .find("tbody")
+              .append("<tr></tr>")
+              .append(
+                `<td>${data[i].Label}</td>`,
+                `<td>${data[i].PropertyType}</td>`,
+                `<td>${data[i].Size}</td>`,
+                `<td>${data[i].PriceVAT}</td>`
+              );
+          } else if (
+            temp == "apartment" &&
+            ForSaleObject["property-type-apartment"] != "0"
+          ) {
+            console.log(data[i]);
+            $("#pages")
+              .contents()
+              .find("tbody")
+              .append("<tr></tr>")
+              .append(
+                `<td>${data[i].Label}</td>`,
+                `<td>${data[i].PropertyType}</td>`,
+                `<td>${data[i].Size}</td>`,
+                `<td>${data[i].PriceVAT}</td>`
+              );
+          } else if (
+            temp == "estate" &&
+            ForSaleObject["property-type-estate"] != "0"
+          ) {
+            console.log(data[i]);
+            $("#pages")
+              .contents()
+              .find("tbody")
+              .append("<tr></tr>")
+              .append(
+                `<td>${data[i].Label}</td>`,
+                `<td>${data[i].PropertyType}</td>`,
+                `<td>${data[i].Size}</td>`,
+                `<td>${data[i].PriceVAT}</td>`
+              );
+          }
+        }
+      }
+    });
+  }, 1000);
 }

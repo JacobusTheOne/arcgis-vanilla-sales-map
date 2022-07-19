@@ -9,19 +9,22 @@
       href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css"
     />
     <!-- <link rel="stylesheet" href="https://resources/demos/style.css" /> -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <script src="../../js/search.js"></script>
+
     <script>
       $(document).ready(function () {
         //////////////////////////
@@ -223,121 +226,233 @@
       </div>
       <!-- Tab content -->
       <div id="For Sale" class="tabcontent">
-        <h1>LOCATION & ESTATE DETAIL</h1>
-        <h6>Province: Western Cape</h6>
-        <h6>Suburb: Paarl</h6>
-        <h6>Estates</h6>
-        <select id="estates" name="estates">
-          <option value="any_estate" selected disabled hidden>Any</option>
-          <option value="pearl_valley">Pearl Valley</option>
-          <option value="the_acres">The Acres</option>
-          <option value="val_de_vie">Val de Vie</option>
-          <option value="val_de_vie_evergreen_retirement">
-            Val de Vie Evergreen Retirement
-          </option>
-        </select>
-        <h1>Property Detail</h1>
-        <div>
-          <div class="dropdown full-width">
-            <button class="btn btn-secondary btn-block">
-              Select Property Types
-            </button>
-            <div class="dropdown-content">
-              <label class="container"
-                >Any
-                <input type="checkbox" checked="checked" />
-                <span class="checkmark"></span>
-              </label>
+        <form id="for-sale">
+          <h1>LOCATION & ESTATE DETAIL</h1>
+          <h6>Province: Western Cape</h6>
+          <h6>Suburb: Paarl</h6>
+          <h6>Estates</h6>
+          <select id="estates" name="estates">
+            <option
+              name="property-type-any"
+              value="any"
+              selected
+              disabled
+              hidden
+            >
+              Any
+            </option>
+            <option name="property-type-vdvi-hoa1 " value="hoa-i">
+              VDV I: HOA I
+            </option>
+            <option name="property-type-vdvi-phase1" value="vdv1-phase-1">
+              VDV I: Phase 1
+            </option>
+            <option
+              name="property-type-vdvii-river-club"
+              value="vdv2-river-club"
+            >
+              VDV II: River Club
+            </option>
+            <option
+              name="property-type-vdvii-gentleman-estate"
+              value="vdv2-gentleman-estate"
+            >
+              VDV II:Gentleman Est
+            </option>
+            <option name="property-type-vdvii-la-vue" value="vdv2-la-vue">
+              VDV II: La Vue
+            </option>
+            <option name="property-type-vdvii-la-vueii" value="vdvii-la-vueii">
+              VDV II: La Vue II
+            </option>
+            <option
+              name="property-type-vdvii-le-domaine"
+              value="vdvii-le-domaine"
+            >
+              VDV II: Le Domaine
+            </option>
+            <option name="property-type-vdvi-the-vines" value="vdvi-the-vines">
+              VDV I: The Vines
+            </option>
+            <option
+              name="property-type-vdvi-the-vinesii"
+              value="vdvi-the-vinesii"
+            >
+              VDV I: The Vines II
+            </option>
+          </select>
+          <h1>Property Detail</h1>
+          <div>
+            <div class="dropdown full-width">
+              <button class="btn btn-secondary btn-block">
+                Select Property Types
+              </button>
+              <div class="dropdown-content">
+                <label class="container"
+                  >Any
+                  <input
+                    name="property-type-any"
+                    value="any"
+                    type="checkbox"
+                    checked="checked"
+                  />
+                  <span class="checkmark"></span>
+                </label>
 
-              <label class="container"
-                >House
-                <input type="checkbox" />
-                <span class="checkmark"></span>
-              </label>
+                <label class="container"
+                  >House
+                  <input
+                    name="property-type-house"
+                    value="house"
+                    type="checkbox"
+                  />
+                  <span class="checkmark"></span>
+                </label>
 
-              <label class="container"
-                >Apartment
-                <input type="checkbox" />
-                <span class="checkmark"></span>
-              </label>
+                <label class="container"
+                  >Apartment
+                  <input
+                    name="property-type-apartment"
+                    value="apartment"
+                    type="checkbox"
+                  />
+                  <span class="checkmark"></span>
+                </label>
 
-              <label class="container"
-                >Estate
-                <input type="checkbox" />
-                <span class="checkmark"></span>
-              </label>
+                <label class="container"
+                  >Estate
+                  <input
+                    name="property-type-estate"
+                    value="estate"
+                    type="checkbox"
+                  />
+                  <span class="checkmark"></span>
+                </label>
+              </div>
             </div>
           </div>
-        </div>
-        <h5>Price</h5>
-        <p>
-          <label for="amount">Price range:</label>
-          <input
-            type="text"
-            id="amount"
-            readonly
-            style="border: 0; color: #f6931f; font-weight: bold"
-          />
-        </p>
-        <div id="slider-range"></div>
-        <h5>Bedrooms</h5>
-        <p>
-          <label for="amount2"></label>
-          <input
-            type="text"
-            id="amount2"
-            readonly
-            style="border: 0; color: #f6931f; font-weight: bold"
-          />
-        </p>
-        <div id="slider-range2"></div>
-        <h5>Bathrooms</h5>
-        <p>
-          <label for="amount3"></label>
-          <input
-            type="text"
-            id="amount3"
-            readonly
-            style="border: 0; color: #f6931f; font-weight: bold"
-          />
-        </p>
-        <div id="slider-range3"></div>
-        <div class="full-width">
-          <input
-            class="btn btn-primary btn-block"
-            id="submit-button"
-            type="submit"
-            value="Submit"
-          />
-        </div>
+          <h5>Price</h5>
+          <p>
+            <label for="amount">Price range:</label>
+            <input
+              name="price-range-value"
+              type="text"
+              id="amount"
+              readonly
+              style="border: 0; color: #f6931f; font-weight: bold"
+            />
+          </p>
+          <div id="slider-range"></div>
+          <h5>Bedrooms</h5>
+          <p>
+            <label for="amount2"></label>
+            <input
+              name="bedroom-range-value"
+              type="text"
+              id="amount2"
+              readonly
+              style="border: 0; color: #f6931f; font-weight: bold"
+            />
+          </p>
+          <div id="slider-range2"></div>
+          <h5>Bathrooms</h5>
+          <p>
+            <label for="amount3"></label>
+            <input
+              name="bathroom-range-value"
+              type="text"
+              id="amount3"
+              readonly
+              style="border: 0; color: #f6931f; font-weight: bold"
+            />
+          </p>
+          <div id="slider-range3"></div>
+          <div class="full-width">
+            <input
+              class="btn btn-primary btn-block"
+              id="submit-button"
+              type="submit"
+              value="Submit"
+              onclick="(window.parent.StartForSale())"
+            />
+          </div>
+        </form>
       </div>
       <!-- TAB CONTENT UNIT SEARCH -->
       <div id="Unit Search" class="tabcontent">
-        <h6>Estates</h6>
-        <select class="margin-bottom" id="estates" name="estates">
-          <option value="any_estate" selected disabled hidden>Any</option>
-          <option value="pearl_valley">Pearl Valley</option>
-          <option value="the_acres">The Acres</option>
-          <option value="val_de_vie">Val de Vie</option>
-          <option value="val_de_vie_evergreen_retirement">
-            Val de Vie Evergreen Retirement
-          </option>
-        </select>
-        <input
-          class="margin-bottom"
-          placeholder="Enter the unit number"
-          type="text"
-        />
-        <div class="full-width">
-          <label class="container margin-bottom"
-            >Only Exact Matches
-            <input type="checkbox" checked="checked" />
-            <span class="checkmark"></span>
-          </label>
-          <button class="btn btn-primary btn-block margin-bottom">
-            search
-          </button>
-        </div>
+        <form id="unit-search" action="">
+          <h6>Estates</h6>
+          <select class="margin-bottom" id="estates" name="estates">
+            <option
+              name="property-type-any"
+              value="any"
+              selected
+              disabled
+              hidden
+            >
+              Any
+            </option>
+            <option name="property-type-vdvi-hoa1 " value="hoa-i">
+              VDV I: HOA I
+            </option>
+            <option name="property-type-vdvi-phase1" value="vdv1-phase-1">
+              VDV I: Phase 1
+            </option>
+            <option
+              name="property-type-vdvii-river-club"
+              value="vdv2-river-club"
+            >
+              VDV II: River Club
+            </option>
+            <option
+              name="property-type-vdvii-gentleman-estate"
+              value="vdv2-gentleman-estate"
+            >
+              VDV II:Gentleman Est
+            </option>
+            <option name="property-type-vdvii-la-vue" value="vdv2-la-vue">
+              VDV II: La Vue
+            </option>
+            <option name="property-type-vdvii-la-vueii" value="vdvii-la-vueii">
+              VDV II: La Vue II
+            </option>
+            <option
+              name="property-type-vdvii-le-domaine"
+              value="vdvii-le-domaine"
+            >
+              VDV II: Le Domaine
+            </option>
+            <option name="property-type-vdvi-the-vines" value="vdvi-the-vines">
+              VDV I: The Vines
+            </option>
+            <option
+              name="property-type-vdvi-the-vinesii"
+              value="vdvi-the-vinesii"
+            >
+              VDV I: The Vines II
+            </option>
+          </select>
+          <input
+            name="unit-number"
+            class="margin-bottom"
+            placeholder="Enter the unit number"
+            type="text"
+          />
+          <div class="full-width">
+            <label class="container margin-bottom"
+              >Only Exact Matches
+              <input
+                name="only-exact-matches"
+                type="checkbox"
+                checked="checked"
+              />
+              <span class="checkmark"></span>
+            </label>
+            <button class="btn btn-primary btn-block margin-bottom">
+              search
+            </button>
+          </div>
+        </form>
       </div>
     </section>
   </body>
@@ -345,4 +460,5 @@
   <script>
     document.getElementById("defaultOpen").click();
   </script>
+  <script src="../../js/newSearch.js"></script>
 </html>
