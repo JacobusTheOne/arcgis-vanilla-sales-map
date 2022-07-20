@@ -68,12 +68,12 @@ function DrawMap() {
       let bathrooms = "0";
       let bedrooms = "0";
       let garages = "0";
-      let label = "0";
       let propertyType = "House";
       let houseTempStatus;
       let houseStatusString = "";
       let housePhotos = "0";
       for (let i = 0; i < data.length; i++) {
+        /* if (data[i].Label == "55") { */
         temp = data[i].Status;
         if (temp != "") {
           temp = temp.toUpperCase();
@@ -138,6 +138,7 @@ function DrawMap() {
             housePhotos
           )
         );
+        /*  } */
       }
     });
     //!!!!!!!!!!!!!!
@@ -801,10 +802,16 @@ function StartForSale() {
     });
 }
 //unit search form submission
-$("#unit-search").submit(function (event) {
-  console.log($(this).serializeArray());
-  event.preventDefault();
-});
+function StartUnitSearch() {
+  $("#pages")
+    .contents()
+    .find("#unit-search")
+    .submit(function (event) {
+      let jsonObject = $(this).serializeArray();
+      UnitSearch(jsonObject);
+      event.preventDefault();
+    });
+}
 const priceRange = {
   min: 0,
   max: 0,
@@ -821,48 +828,48 @@ function changeSrc(loc) {
   currentLocation = loc;
   window.parent.document.getElementById("pages").src = loc; //change this
 }
-const ForSaleObject = {
-  estates: "0",
-  "property-type-any": "0",
-  "property-type-house": "0",
-  "property-type-apartment": "0",
-  "property-type-estate": "0",
-  "price-range-value": "0",
-  "bedroom-range-value": "0",
-  "bathroom-range-value": "0",
-};
-const TheEstates = {
-  hoai: "VDV I: HOA I",
-  "vdvi-phasei": "VDV I: Phase 1",
-  "vdvii-river-club": "VDV II: River Club",
-  "vdvii-gentleman-estate": "VDV II:Gentleman Est",
-  "vdvii-la-vue": "VDV II: La Vue",
-  "vdvii-la-vueii": "VDV II: La Vue II",
-  "vdvii-le-domaine": " VDV II: Le Domaine",
-  "vdvi-the-vines": "VDV I: The Vines",
-  "vdvi-the-vinesii": "VDV I: The Vines II",
-};
-const TheEstatesReversed = {
-  "VDV I: HOA I": "hoai",
-  "VDV I: Phase 1": "vdvi-phasei",
-  "VDV II: River Club": "vdvii-river-club",
-  "VDV II:Gentleman Est": "vdvii-gentleman-estate",
-  "VDV II: La Vue": "vdvii-la-vue",
-  "VDV II: La Vue II": "vdvii-la-vueii",
-  "VDV II: Le Domaine": "vdvii-le-domaine",
-  "VDV I: The Vines": "vdvi-the-vines",
-  "VDV I: The Vines II": "vdvi-the-vinesii",
-};
+
 function ForSale(jsonObject) {
+  const ForSaleObject = {
+    estates: "0",
+    "property-type-any": "0",
+    "property-type-house": "0",
+    "property-type-apartment": "0",
+    "property-type-estate": "0",
+    "price-range-value": "0",
+    "bedroom-range-value": "0",
+    "bathroom-range-value": "0",
+  };
+  const TheEstates = {
+    hoai: "VDV I: HOA I",
+    "vdvi-phasei": "VDV I: Phase 1",
+    "vdvii-river-club": "VDV II: River Club",
+    "vdvii-gentleman-estate": "VDV II:Gentleman Est",
+    "vdvii-la-vue": "VDV II: La Vue",
+    "vdvii-la-vueii": "VDV II: La Vue II",
+    "vdvii-le-domaine": " VDV II: Le Domaine",
+    "vdvi-the-vines": "VDV I: The Vines",
+    "vdvi-the-vinesii": "VDV I: The Vines II",
+  };
+  const TheEstatesReversed = {
+    "VDV I: HOA I": "hoai",
+    "VDV I: Phase 1": "vdvi-phasei",
+    "VDV II: River Club": "vdvii-river-club",
+    "VDV II:Gentleman Est": "vdvii-gentleman-estate",
+    "VDV II: La Vue": "vdvii-la-vue",
+    "VDV II: La Vue II": "vdvii-la-vueii",
+    "VDV II: Le Domaine": "vdvii-le-domaine",
+    "VDV I: The Vines": "vdvi-the-vines",
+    "VDV I: The Vines II": "vdvi-the-vinesii",
+  };
   changeSrc("../../dist/pages/areas/searchResults.html");
+  console.log(jsonObject);
   jsonObject.forEach((item) => {
+    console.log(item.name);
     ForSaleObject[item.name] = item.value;
   });
+  console.log(ForSaleObject);
   setTimeout(() => {
-    /* let iframe = document.getElementById("pages");
-    let innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-    let body = innerDoc.getElementById("main");
-    */
     if (ForSaleObject.estates == "hoai" || ForSaleObject.estates == "any") {
       TableHead("hoai", "#hoai");
     }
@@ -950,7 +957,7 @@ function ForSale(jsonObject) {
           if (precinct == "any" && data[i].Precinct in TheEstatesReversed) {
             precinct = TheEstatesReversed[data[i].Precinct];
           }
-          if (precinct != undefined) {
+          if (precinct != undefined && precinct != "any") {
             if (
               (temp == "house" || temp == "stand" || temp == "building") &&
               ForSaleObject["property-type-any"] != "0"
@@ -1001,54 +1008,217 @@ function ForSale(jsonObject) {
       }
     });
   }, 1000);
-  /* for (const key in TheEstatesReversed) {
-    if (
-      $("#pages")
-        .contents()
-        .find(`#${TheEstates[key] + "-main"}`)
-        .children()
-        .children()
-        .hasClass("table-row-data")
-    ) {
-      $("#pages")
-        .contents()
-        .find(`${TheEstates[key] + "-main"}`)
-        .remove();
-    } else {
-      alert("class was not found");
+  setTimeout(() => {
+    let number;
+    if (ForSaleObject.estates === "any") {
+      for (const key in TheEstatesReversed) {
+        let iframe = document.getElementById("pages");
+        let innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+        number = innerDoc.getElementById(
+          `${TheEstatesReversed[key]}-body`
+        ).children;
+        if (number.length == 1) {
+          innerDoc.getElementById(`${TheEstatesReversed[key]}-main`).remove();
+        }
+      }
     }
-  } */
+  }, 1100);
+  function TableHead(value1, value2) {
+    $("#pages")
+      .contents()
+      .find(`#main`)
+      .append(`<div id="${value1 + "-main"}"></div>`);
+    $("#pages")
+      .contents()
+      .find(`#${value1 + "-main"}`)
+      .append(
+        `<h3>${TheEstates[value1]}</h3>`,
+        `<button type="button" class="collapsible">Open Collapsible</button>`,
+        `<table  id=${value1} class="contents"><tbody id='${value1}-body' class="units-table"></tbody></table>`
+      );
+    $("#pages").contents().find(`${value2}`).append("<tr></tr>");
+    $("#pages")
+      .contents()
+      .find(`${value2}`)
+      .find("tr")
+      .append(
+        "<th scope='column'>Unit</th>",
+        "<th scope='column'>Type</th>",
+        "<th scope='column'>Size sqm</th>",
+        "<th scope='column'>Price</th>"
+      );
+  }
+  function TableRow(precinct, label, propertytype, size, pricevat) {
+    if (pricevat > 0) {
+      $("#pages").contents().find(`#${precinct} > tbody:last-child`)
+        .append(`<tr class="table-row-data">
+      <td>${label}</td>
+        <td>${propertytype}</td>
+        <td>${size}</td>
+        <td>${pricevat}</td>
+      </tr>`);
+    }
+  }
 }
-function TableHead(value1, value2) {
-  $("#pages")
-    .contents()
-    .find(`#main`)
-    .append(`<div id="${value1 + "-main"}"></div>`);
-  $("#pages")
-    .contents()
-    .find(`#${value1 + "-main"}`)
-    .append(`<h3>${TheEstates[value1]}</h3>`, `<table id=${value1}></table>`);
-  $("#pages").contents().find(`${value2}`).append("<tr></tr>");
-  $("#pages")
-    .contents()
-    .find(`${value2}`)
-    .find("tr")
-    .append(
-      "<th>Unit</th>",
-      "<th>Type</th>",
-      "<th>Size sqm</th>",
-      "<th>Price</th>"
-    );
-}
-function TableRow(precinct, label, propertytype, size, pricevat) {
-  $("#pages")
-    .contents()
-    .find(`${precinct} > tbody:last-child`)
-    .append(`<tr class="table-row-data"></tr>`)
-    .append(
-      `<td>${label}</td>`,
-      `<td>${propertytype}</td>`,
-      `<td>${size}</td>`,
-      `<td>${pricevat}</td>`
-    );
+
+function UnitSearch(jsonObject) {
+  const UnitSearchObject = {
+    estates: "0",
+    "unit-number": 0,
+    "only-exact-matches": "0",
+  };
+  const TheEstates = {
+    hoai: "VDV I: HOA I",
+    "vdvi-phasei": "VDV I: Phase 1",
+    "vdvii-river-club": "VDV II: River Club",
+    "vdvii-gentleman-estate": "VDV II:Gentleman Est",
+    "vdvii-la-vue": "VDV II: La Vue",
+    "vdvii-la-vueii": "VDV II: La Vue II",
+    "vdvii-le-domaine": " VDV II: Le Domaine",
+    "vdvi-the-vines": "VDV I: The Vines",
+    "vdvi-the-vinesii": "VDV I: The Vines II",
+  };
+  const TheEstatesReversed = {
+    "VDV I: HOA I": "hoai",
+    "VDV I: Phase 1": "vdvi-phasei",
+    "VDV II: River Club": "vdvii-river-club",
+    "VDV II:Gentleman Est": "vdvii-gentleman-estate",
+    "VDV II: La Vue": "vdvii-la-vue",
+    "VDV II: La Vue II": "vdvii-la-vueii",
+    "VDV II: Le Domaine": "vdvii-le-domaine",
+    "VDV I: The Vines": "vdvi-the-vines",
+    "VDV I: The Vines II": "vdvi-the-vinesii",
+  };
+  changeSrc("../../dist/pages/areas/searchResults.html");
+  jsonObject.forEach((item) => {
+    UnitSearchObject[item.name] = item.value;
+  });
+  console.log(UnitSearchObject);
+  setTimeout(() => {
+    if (
+      UnitSearchObject.estates == "hoai" ||
+      UnitSearchObject.estates == "any"
+    ) {
+      TableHead("hoai", "#hoai");
+    }
+    if (
+      UnitSearchObject.estates == "vdvii-la-vue" ||
+      UnitSearchObject.estates == "any"
+    ) {
+      TableHead("vdvii-la-vue", "#vdvii-la-vue");
+    }
+    if (
+      UnitSearchObject.estates == "vdvi-phasei" ||
+      UnitSearchObject.estates == "any"
+    ) {
+      TableHead("vdvi-phasei", "#vdvi-phasei");
+    }
+    if (
+      UnitSearchObject.estates == "vdvii-river-club" ||
+      UnitSearchObject.estates == "any"
+    ) {
+      TableHead("vdvii-river-club", "#vdvii-river-club");
+    }
+    if (
+      UnitSearchObject.estates == "vdvii-gentleman-estate" ||
+      UnitSearchObject.estates == "any"
+    ) {
+      TableHead("vdvii-gentleman-estate", "#vdvii-gentleman-estate");
+    }
+    if (
+      UnitSearchObject.estates == "vdvii-la-vueii" ||
+      UnitSearchObject.estates == "any"
+    ) {
+      TableHead("vdvii-la-vueii", "#vdvii-la-vueii");
+    }
+    if (
+      UnitSearchObject.estates == "vdvii-le-domaine" ||
+      UnitSearchObject.estates == "any"
+    ) {
+      TableHead("vdvii-le-domaine", "#vdvii-le-domaine");
+    }
+    if (
+      UnitSearchObject.estates == "vdvi-the-vines" ||
+      UnitSearchObject.estates == "any"
+    ) {
+      TableHead("vdvi-the-vines", "#vdvi-the-vines");
+    }
+    if (
+      UnitSearchObject.estates == "vdvi-the-vinesii" ||
+      UnitSearchObject.estates == "any"
+    ) {
+      TableHead("vdvi-the-vinesii", "#vdvi-the-vinesii");
+    }
+
+    d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
+      let temp;
+      for (let i = 0; i < data.length; i++) {
+        let precinct = UnitSearchObject.estates;
+        if (precinct == "any" && data[i].Precinct in TheEstatesReversed) {
+          precinct = TheEstatesReversed[data[i].Precinct];
+        }
+        if (UnitSearchObject["unit-number"] == data[i].Label) {
+          console.log(data[i].Precinct);
+          TableRow(
+            precinct,
+            data[i].Label,
+            data[i].PropertyType,
+            data[i].Size,
+            data[i].PriceVAT
+          );
+        }
+      }
+    });
+  }, 1000);
+  setTimeout(() => {
+    let number;
+    if (UnitSearchObject.estates === "any") {
+      for (const key in TheEstatesReversed) {
+        let iframe = document.getElementById("pages");
+        let innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+        number = innerDoc.getElementById(
+          `${TheEstatesReversed[key]}-body`
+        ).children;
+        if (number.length == 1) {
+          innerDoc.getElementById(`${TheEstatesReversed[key]}-main`).remove();
+        }
+      }
+    }
+  }, 1100);
+  function TableHead(value1, value2) {
+    $("#pages")
+      .contents()
+      .find(`#main`)
+      .append(`<div id="${value1 + "-main"}"></div>`);
+    $("#pages")
+      .contents()
+      .find(`#${value1 + "-main"}`)
+      .append(
+        `<h3>${TheEstates[value1]}</h3>`,
+        `<button type="button" class="collapsible">Open Collapsible</button>`,
+        `<table  id=${value1} class="contents"><tbody id='${value1}-body' class="units-table"></tbody></table>`
+      );
+    $("#pages").contents().find(`${value2}`).append("<tr></tr>");
+    $("#pages")
+      .contents()
+      .find(`${value2}`)
+      .find("tr")
+      .append(
+        "<th scope='column'>Unit</th>",
+        "<th scope='column'>Type</th>",
+        "<th scope='column'>Size sqm</th>",
+        "<th scope='column'>Price</th>"
+      );
+  }
+  function TableRow(precinct, label, propertytype, size, pricevat) {
+    if (pricevat != "") {
+      $("#pages").contents().find(`#${precinct} > tbody:last-child`)
+        .append(`<tr class="table-row-data">
+    <td>${label}</td>
+      <td>${propertytype}</td>
+      <td>${size}</td>
+      <td>${pricevat}</td>
+    </tr>`);
+    }
+  }
 }

@@ -22,10 +22,14 @@
       type="text/javascript"
       src="https://js.hsforms.net/forms/v2.js"
     ></script>
-    <script
+    <!-- <script
     src="https://code.jquery.com/jquery-2.2.4.min.js"
     integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script> -->
+    <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script
       charset="utf-8"
@@ -82,12 +86,11 @@
         transform: translate(-90%, -10%);
       }
     </style>
-    
     <script>
       let images;
       let currentImage;
       $(document).ready(function () {
-        $('#pages').load(function(){
+        $('#pages').on('load',function(){
           setTimeout(SelectImages,2000);
           function SelectImages(){
           $('#pages').contents().find('img').click(function () {
