@@ -847,9 +847,10 @@ function ForSale(jsonObject) {
     "vdvii-gentleman-estate": "VDV II:Gentleman Est",
     "vdvii-la-vue": "VDV II: La Vue",
     "vdvii-la-vueii": "VDV II: La Vue II",
-    "vdvii-le-domaine": " VDV II: Le Domaine",
+    "vdvii-le-domaine": "VDV II: Le Domaine",
     "vdvi-the-vines": "VDV I: The Vines",
     "vdvi-the-vinesii": "VDV I: The Vines II",
+    "vdvii-the-acres": "VDV II: The Acres",
   };
   const TheEstatesReversed = {
     "VDV I: HOA I": "hoai",
@@ -861,6 +862,7 @@ function ForSale(jsonObject) {
     "VDV II: Le Domaine": "vdvii-le-domaine",
     "VDV I: The Vines": "vdvi-the-vines",
     "VDV I: The Vines II": "vdvi-the-vinesii",
+    "VDV II: The Acres": "vdvii-the-acres",
   };
   changeSrc("../../dist/pages/areas/searchResults.html");
   console.log(jsonObject);
@@ -921,7 +923,12 @@ function ForSale(jsonObject) {
     ) {
       TableHead("vdvi-the-vinesii", "#vdvi-the-vinesii");
     }
-
+    if (
+      ForSaleObject.estates == "vdvii-the-acres" ||
+      ForSaleObject.estates == "any"
+    ) {
+      TableHead("vdvii-the-acres", "#vdvii-the-acres");
+    }
     //console.log(ForSaleObject);
     priceRange.min = parseInt(
       ForSaleObject["price-range-value"].split(" - ").at(0).slice(1)
@@ -1074,9 +1081,10 @@ function UnitSearch(jsonObject) {
     "vdvii-gentleman-estate": "VDV II:Gentleman Est",
     "vdvii-la-vue": "VDV II: La Vue",
     "vdvii-la-vueii": "VDV II: La Vue II",
-    "vdvii-le-domaine": " VDV II: Le Domaine",
+    "vdvii-le-domaine": "VDV II: Le Domaine",
     "vdvi-the-vines": "VDV I: The Vines",
     "vdvi-the-vinesii": "VDV I: The Vines II",
+    "vdvii-the-acres": "VDV II: The Acres",
   };
   const TheEstatesReversed = {
     "VDV I: HOA I": "hoai",
@@ -1088,6 +1096,7 @@ function UnitSearch(jsonObject) {
     "VDV II: Le Domaine": "vdvii-le-domaine",
     "VDV I: The Vines": "vdvi-the-vines",
     "VDV I: The Vines II": "vdvi-the-vinesii",
+    "VDV II: The Acres": "vdvii-the-acres",
   };
   changeSrc("../../dist/pages/areas/searchResults.html");
   jsonObject.forEach((item) => {
@@ -1148,6 +1157,12 @@ function UnitSearch(jsonObject) {
       UnitSearchObject.estates == "any"
     ) {
       TableHead("vdvi-the-vinesii", "#vdvi-the-vinesii");
+    }
+    if (
+      UnitSearchObject.estates == "vdvii-the-acres" ||
+      UnitSearchObject.estates == "any"
+    ) {
+      TableHead("vdvii-the-acres", "#vdvii-the-acres");
     }
 
     d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
