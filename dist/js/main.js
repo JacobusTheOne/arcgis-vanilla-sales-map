@@ -1,5 +1,9 @@
 let currentLocation;
-function DrawMap() {
+function DrawMap(
+  longitudeUnit = 18.9660638,
+  lattitudeUnit = -33.8071444,
+  zoomUnit = 13
+) {
   require([
     "esri/config",
     "esri/Map",
@@ -45,8 +49,8 @@ function DrawMap() {
 
     const view = new MapView({
       map: map,
-      center: [18.9660638, -33.8071444], //Longitude, latitude
-      zoom: 15,
+      center: [longitudeUnit, lattitudeUnit], //Longitude, latitude
+      zoom: zoomUnit,
       container: "viewDiv",
     });
 
@@ -785,13 +789,8 @@ function Enquire(
     script.innerHTML = `ChangeUnitContent('${housenumber}','${size}','${price}','${status}','${bedrooms}','${bathrooms}','${garages}','${propertyType}','${housePhotos}');`;
     section.appendChild(script);
   }
-  //const houseLabel = document.createElement("label");
-  //houseLabel.innerHTML = housenumber;
-  //div.appendChild= houseLabel;
 }
 ///////////////////////////FOR SALE SEARCH AND UNIT SEARCH START
-//for Sale form submission
-//for Sale form submission
 function StartForSale() {
   $("#pages")
     .contents()
@@ -1059,7 +1058,9 @@ function ForSale(jsonObject) {
     if (pricevat > 0) {
       $("#pages").contents().find(`#${precinct} > tbody:last-child`)
         .append(`<tr class="table-row-data">
-      <td>${label}</td>
+      <td><button onclick="ChangeMapLocationToUnitLocation(
+        ${label}
+      )">${label}</button></td>
         <td>${propertytype}</td>
         <td>${size}</td>
         <td>${pricevat}</td>
@@ -1229,7 +1230,7 @@ function UnitSearch(jsonObject) {
     if (pricevat != "") {
       $("#pages").contents().find(`#${precinct} > tbody:last-child`)
         .append(`<tr class="table-row-data">
-    <td>${label}</td>
+    <td><a onclick=${ChangeMapLocationToUnitLocation(label)}>${label}</a></td>
       <td>${propertytype}</td>
       <td>${size}</td>
       <td>${pricevat}</td>
