@@ -73,7 +73,7 @@ function DrawMap() {
       let houseStatusString = "";
       let housePhotos = "0";
       for (let i = 0; i < data.length; i++) {
-        /* if (data[i].Label == "55") { */
+        /* if (data[i].Label == "243") { */
         temp = data[i].Status;
         if (temp != "") {
           temp = temp.toUpperCase();
@@ -138,7 +138,7 @@ function DrawMap() {
             housePhotos
           )
         );
-        /*  } */
+        /* } */
       }
     });
     //!!!!!!!!!!!!!!
