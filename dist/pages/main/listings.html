@@ -4,11 +4,245 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <title>Document</title>
+    <style>
+      .units-table {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      .units-table td,
+      .units-table th {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+
+      .units-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      .units-table tr:hover {
+        background-color: #ddd;
+      }
+
+      .units-table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04aa6d;
+        color: white;
+      }
+
+      /* Style the button that is used to open and close the collapsible content */
+      .collapsible {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+      }
+    </style>
+    <script>
+      const TheEstates = {
+        hoai: "VDV I: HOA I",
+        "vdvi-phasei": "VDV I: Phase 1",
+        "vdvii-river-club": "VDV II: River Club",
+        "vdvii-gentleman-estate": "VDV II:Gentleman Est",
+        "vdvii-la-vue": "VDV II: La Vue",
+        "vdvii-la-vueii": "VDV II: La Vue II",
+        "vdvii-le-domaine": "VDV II: Le Domaine",
+        "vdvi-the-vines": "VDV I: The Vines",
+        "vdvi-the-vinesii": "VDV I: The Vines II",
+        "vdvii-the-acres": "VDV II: The Acres",
+        "vdvii-pearl-valley-group": "VDV I: Pearl Valley Group",
+        "vdvii-evergreen-retirement": "VDV I: Evergreen Retirement",
+      };
+      const TheEstatesReversed = {
+        "VDV I: HOA I": "hoai",
+        "VDV I: Phase 1": "vdvi-phasei",
+        "VDV II: River Club": "vdvii-river-club",
+        "VDV II:Gentleman Est": "vdvii-gentleman-estate",
+        "VDV II: La Vue": "vdvii-la-vue",
+        "VDV II: La Vue II": "vdvii-la-vueii",
+        "VDV II: Le Domaine": "vdvii-le-domaine",
+        "VDV I: The Vines": "vdvi-the-vines",
+        "VDV I: The Vines II": "vdvi-the-vinesii",
+        "VDV II: The Acres": "vdvii-the-acres",
+        "VDV I: Pearl Valley Group": "vdvii-pearl-valley-group",
+        "VDV I: Evergreen Retirement": "vdvii-evergreen-retirement",
+      };
+      $(document).ready(function () {
+        setTimeout(() => {
+          TableHead("hoai", "#hoai");
+
+          TableHead("vdvii-la-vue", "#vdvii-la-vue");
+
+          TableHead("vdvi-phasei", "#vdvi-phasei");
+
+          TableHead("vdvii-river-club", "#vdvii-river-club");
+
+          TableHead("vdvii-gentleman-estate", "#vdvii-gentleman-estate");
+
+          TableHead("vdvii-la-vueii", "#vdvii-la-vueii");
+
+          TableHead("vdvii-le-domaine", "#vdvii-le-domaine");
+
+          TableHead("vdvi-the-vines", "#vdvi-the-vines");
+
+          TableHead("vdvi-the-vinesii", "#vdvi-the-vinesii");
+
+          TableHead("vdvii-the-acres", "#vdvii-the-acres");
+
+          TableHead("vdvii-pearl-valley-group", "#vdvii-pearl-valley-group");
+
+          TableHead(
+            "vdvii-evergreen-retirement",
+            "#vdvii-evergreen-retirement"
+          );
+
+          //console.log(ForSaleObject);
+          d3.csv("../../data/GreaterVDV_SIMS_Combined.csv", function (data) {
+            let temp;
+            let precinct;
+            for (let i = 0; i < data.length; i++) {
+              if (data[i].Precinct in TheEstatesReversed) {
+                precinct = TheEstatesReversed[data[i].Precinct];
+              }
+              TableRow(
+                precinct,
+                data[i].Label,
+                data[i].PropertyType,
+                data[i].Size,
+                data[i].PriceVAT
+              );
+            }
+          });
+
+          RemoveEmptyTables();
+        }, 1000);
+      });
+      function TableHead(value1, value2) {
+        $(`#main`).append(`<div id="${value1 + "-main"}"></div>`);
+        $(`#${value1 + "-main"}`).append(
+          `<h4 class="h4">${TheEstates[value1]}</h4>`,
+          `<button type="button" class="collapsible">Open Collapsible</button>`,
+          `<table  id=${value1} class="contents"><tbody id='${value1}-body' class="units-table"></tbody></table>`
+        );
+        $(`${value2}`).append("<tr></tr>");
+        $(`${value2}`)
+          .find("tr")
+          .append(
+            "<th scope='column'>Unit</th>",
+            "<th scope='column'>Type</th>",
+            "<th scope='column'>Size sqm</th>",
+            "<th scope='column'>Price</th>"
+          );
+      }
+      function TableRow(precinct, label, propertytype, size, pricevat) {
+        if (pricevat > 0) {
+          $(`#${precinct} > tbody:last-child`)
+            .append(`<tr class="table-row-data">
+      <td><button onclick="ChangeMapLocation(
+        ${label}
+      )"  class="btn btn-info">${label}</button></td>
+        <td>${propertytype}</td>
+        <td>${size}</td>
+        <td>${pricevat}</td>
+      </tr>`);
+        }
+      }
+
+      function RemoveEmptyTables() {
+        const TheEstatesReversed = {
+          "VDV I: HOA I": "hoai",
+          "VDV I: Phase 1": "vdvi-phasei",
+          "VDV II: River Club": "vdvii-river-club",
+          "VDV II:Gentleman Est": "vdvii-gentleman-estate",
+          "VDV II: La Vue": "vdvii-la-vue",
+          "VDV II: La Vue II": "vdvii-la-vueii",
+          "VDV II: Le Domaine": "vdvii-le-domaine",
+          "VDV I: The Vines": "vdvi-the-vines",
+          "VDV I: The Vines II": "vdvi-the-vinesii",
+          "VDV II: The Acres": "vdvii-the-acres",
+          "VDV I: Pearl Valley Group": "vdvii-pearl-valley-group",
+          "VDV I: Evergreen Retirement": "vdvii-evergreen-retirement",
+        };
+        $("#main").ready(function () {
+          setTimeout(() => {
+            try {
+              let number;
+              for (const key in TheEstatesReversed) {
+                /* let iframe = document.getElementById("pages");
+            let innerDoc =
+              iframe.contentDocument || iframe.contentWindow.document; */
+                number = $("#main")
+                  .find(`#${TheEstatesReversed[key]}-body`)
+                  .children().length;
+                console.log(number);
+                if (number <= 1) {
+                  $("#main").find(`#${TheEstatesReversed[key]}-main`).remove();
+                }
+              }
+            } catch (e) {
+              console.log(e);
+            }
+          }, 2000);
+        });
+        CloseTables();
+      }
+
+      function CloseTables() {
+        setTimeout(() => {
+          var coll = $("#main").find(".collapsible");
+          var i;
+
+          for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+              this.classList.toggle("active");
+              var content = this.nextElementSibling;
+              if (content.style.display === "block") {
+                content.style.display = "none";
+              } else {
+                content.style.display = "block";
+              }
+            });
+            coll[i].click();
+            coll[i].click();
+          }
+        }, 3000);
+      }
+      function ChangeMapLocation(unit) {
+        d3.csv("../../data/GreaterVDV_SIMS_Combined.csv", function (data) {
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].Label == unit) {
+              console.log(unit);
+              console.log("Longitude: ", data[i].Longitude);
+              console.log("Lattitude: ", data[i].Latitude);
+              window.parent.DrawMap(data[i].Longitude, data[i].Latitude, 20);
+            }
+          }
+        });
+      }
+    </script>
   </head>
   <body>
-    <div id="listings">
-      TODO:Dynamically populate the list with all the listings
-    </div>
+    <div id="main"></div>
   </body>
 </html>
