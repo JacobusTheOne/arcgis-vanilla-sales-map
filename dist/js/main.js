@@ -850,6 +850,8 @@ function ForSale(jsonObject) {
     "vdvi-the-vines": "VDV I: The Vines",
     "vdvi-the-vinesii": "VDV I: The Vines II",
     "vdvii-the-acres": "VDV II: The Acres",
+    "vdvii-pearl-valley-group": "VDV I: Pearl Valley Group",
+    "vdvii-evergreen-retirement": "VDV I: Evergreen Retirement",
   };
   const TheEstatesReversed = {
     "VDV I: HOA I": "hoai",
@@ -862,6 +864,8 @@ function ForSale(jsonObject) {
     "VDV I: The Vines": "vdvi-the-vines",
     "VDV I: The Vines II": "vdvi-the-vinesii",
     "VDV II: The Acres": "vdvii-the-acres",
+    "VDV I: Pearl Valley Group": "vdvii-pearl-valley-group",
+    "VDV I: Evergreen Retirement": "vdvii-evergreen-retirement",
   };
   changeSrc("../../dist/pages/areas/searchResults.html");
 
@@ -932,6 +936,21 @@ function ForSale(jsonObject) {
           ForSaleObject.estates == "any"
         ) {
           TableHead("vdvii-the-acres", "#vdvii-the-acres");
+        }
+        if (
+          ForSaleObject.estates == "vdvii-pearl-valley-group" ||
+          ForSaleObject.estates == "any"
+        ) {
+          TableHead("vdvii-pearl-valley-group", "#vdvii-pearl-valley-group");
+        }
+        if (
+          ForSaleObject.estates == "vdvii-evergreen-retirement" ||
+          ForSaleObject.estates == "any"
+        ) {
+          TableHead(
+            "vdvii-evergreen-retirement",
+            "#vdvii-evergreen-retirement"
+          );
         }
         //console.log(ForSaleObject);
         priceRange.min = parseInt(
@@ -1078,6 +1097,8 @@ function UnitSearch(jsonObject) {
     "vdvi-the-vines": "VDV I: The Vines",
     "vdvi-the-vinesii": "VDV I: The Vines II",
     "vdvii-the-acres": "VDV II: The Acres",
+    "vdvii-pearl-valley-group": "VDV I: Pearl Valley Group",
+    "vdvii-evergreen-retirement": "VDV I: Evergreen Retirement",
   };
   const TheEstatesReversed = {
     "VDV I: HOA I": "hoai",
@@ -1090,6 +1111,8 @@ function UnitSearch(jsonObject) {
     "VDV I: The Vines": "vdvi-the-vines",
     "VDV I: The Vines II": "vdvi-the-vinesii",
     "VDV II: The Acres": "vdvii-the-acres",
+    "VDV I: Pearl Valley Group": "vdvii-pearl-valley-group",
+    "VDV I: Evergreen Retirement": "vdvii-evergreen-retirement",
   };
   changeSrc("../../dist/pages/areas/searchResults.html");
   jsonObject.forEach((item) => {
@@ -1164,6 +1187,21 @@ function UnitSearch(jsonObject) {
         ) {
           TableHead("vdvii-the-acres", "#vdvii-the-acres");
         }
+        if (
+          UnitSearchObject.estates == "vdvii-pearl-valley-group" ||
+          UnitSearchObject.estates == "any"
+        ) {
+          TableHead("vdvii-pearl-valley-group", "#vdvii-pearl-valley-group");
+        }
+        if (
+          UnitSearchObject.estates == "vdvii-evergreen-retirement" ||
+          UnitSearchObject.estates == "any"
+        ) {
+          TableHead(
+            "vdvii-evergreen-retirement",
+            "#vdvii-evergreen-retirement"
+          );
+        }
 
         d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
           for (let i = 0; i < data.length; i++) {
@@ -1172,7 +1210,7 @@ function UnitSearch(jsonObject) {
               precinct = TheEstatesReversed[data[i].Precinct];
             }
             if (UnitSearchObject["unit-number"] == data[i].Label) {
-              console.log(data[i].Precinct);
+              console.log(precinct);
               TableRow(
                 precinct,
                 data[i].Label,
@@ -1183,8 +1221,8 @@ function UnitSearch(jsonObject) {
             }
           }
         });
-      }, 1500);
-      RemoveEmptyTables();
+        RemoveEmptyTables();
+      }, 1000);
     });
   function TableHead(value1, value2) {
     $("#pages")
@@ -1215,7 +1253,7 @@ function UnitSearch(jsonObject) {
     if (pricevat != "") {
       $("#pages").contents().find(`#${precinct} > tbody:last-child`)
         .append(`<tr class="table-row-data">
-    <td><a onclick=${ChangeMapLocationToUnitLocation(label)}>${label}</a></td>
+    <td><a onclick="ChangeMapLocationToUnitLocation(${label})">${label}</a></td>
       <td>${propertytype}</td>
       <td>${size}</td>
       <td>${pricevat}</td>
@@ -1236,6 +1274,8 @@ function RemoveEmptyTables() {
     "VDV I: The Vines": "vdvi-the-vines",
     "VDV I: The Vines II": "vdvi-the-vinesii",
     "VDV II: The Acres": "vdvii-the-acres",
+    "VDV I: Pearl Valley Group": "vdvii-pearl-valley-group",
+    "VDV I: Evergreen Retirement": "vdvii-evergreen-retirement",
   };
   $("#pages")
     .contents()
@@ -1251,7 +1291,8 @@ function RemoveEmptyTables() {
               .contents()
               .find(`#${TheEstatesReversed[key]}-body`)
               .children().length;
-            if (number == 1) {
+            console.log(number);
+            if (number <= 1) {
               $("#pages")
                 .contents()
                 .find(`#${TheEstatesReversed[key]}-main`)
