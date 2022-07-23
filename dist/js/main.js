@@ -1302,7 +1302,7 @@ function RemoveEmptyTables() {
         } catch (e) {
           console.log(e);
         }
-      }, 1500);
+      }, 2000);
     });
   CloseTables();
 }
@@ -1325,5 +1325,5 @@ function CloseTables() {
       coll[i].click();
       coll[i].click();
     }
-  }, 1500);
+  }, 3000);
 }
