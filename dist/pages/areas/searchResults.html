@@ -98,21 +98,21 @@
       "VDV I: The Vines II": "vdvi-the-vinesii",
       "VDV II: The Acres": "vdvii-the-acres",
     };
-    setTimeout(() => {
+   /*  setTimeout(() => {
       let number;
-      /* if (ForSaleObject.estates === "any") { */
+      if (ForSaleObject.estates === "any") {
       for (const key in TheEstatesReversed) {
-        /* let iframe = document.getElementById("pages");
+        let iframe = document.getElementById("pages");
           let innerDoc =
-            iframe.contentDocument || iframe.contentWindow.document; */
+            iframe.contentDocument || iframe.contentWindow.document;
         number = document.getElementById(`${TheEstatesReversed[key]}-body`).children;
         console.log(number);
         if (number.length == 1) {
           document.getElementById(`${TheEstatesReversed[key]}-main`).remove();
         }
       }
-      /*  } */
-    }, 1000);
+       }
+    }, 1000); */
     setTimeout(() => {
       var coll = document.getElementsByClassName("collapsible");
       var i;
