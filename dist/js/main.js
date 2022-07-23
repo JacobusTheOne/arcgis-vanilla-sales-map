@@ -1014,7 +1014,7 @@ function ForSale(jsonObject) {
       }
     });
   }, 1000);
-  setTimeout(() => {
+  /* setTimeout(() => {
     let number;
     if (ForSaleObject.estates === "any") {
       for (const key in TheEstatesReversed) {
@@ -1028,7 +1028,7 @@ function ForSale(jsonObject) {
         }
       }
     }
-  }, 1100);
+  }, 1100); */
   function TableHead(value1, value2) {
     $("#pages")
       .contents()
