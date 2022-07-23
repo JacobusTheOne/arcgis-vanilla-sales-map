@@ -864,171 +864,163 @@ function ForSale(jsonObject) {
     "VDV II: The Acres": "vdvii-the-acres",
   };
   changeSrc("../../dist/pages/areas/searchResults.html");
-  console.log(jsonObject);
+
   jsonObject.forEach((item) => {
     console.log(item.name);
     ForSaleObject[item.name] = item.value;
   });
-  console.log(ForSaleObject);
-  setTimeout(() => {
-    if (ForSaleObject.estates == "hoai" || ForSaleObject.estates == "any") {
-      TableHead("hoai", "#hoai");
-    }
-    if (
-      ForSaleObject.estates == "vdvii-la-vue" ||
-      ForSaleObject.estates == "any"
-    ) {
-      TableHead("vdvii-la-vue", "#vdvii-la-vue");
-    }
-    if (
-      ForSaleObject.estates == "vdvi-phasei" ||
-      ForSaleObject.estates == "any"
-    ) {
-      TableHead("vdvi-phasei", "#vdvi-phasei");
-    }
-    if (
-      ForSaleObject.estates == "vdvii-river-club" ||
-      ForSaleObject.estates == "any"
-    ) {
-      TableHead("vdvii-river-club", "#vdvii-river-club");
-    }
-    if (
-      ForSaleObject.estates == "vdvii-gentleman-estate" ||
-      ForSaleObject.estates == "any"
-    ) {
-      TableHead("vdvii-gentleman-estate", "#vdvii-gentleman-estate");
-    }
-    if (
-      ForSaleObject.estates == "vdvii-la-vueii" ||
-      ForSaleObject.estates == "any"
-    ) {
-      TableHead("vdvii-la-vueii", "#vdvii-la-vueii");
-    }
-    if (
-      ForSaleObject.estates == "vdvii-le-domaine" ||
-      ForSaleObject.estates == "any"
-    ) {
-      TableHead("vdvii-le-domaine", "#vdvii-le-domaine");
-    }
-    if (
-      ForSaleObject.estates == "vdvi-the-vines" ||
-      ForSaleObject.estates == "any"
-    ) {
-      TableHead("vdvi-the-vines", "#vdvi-the-vines");
-    }
-    if (
-      ForSaleObject.estates == "vdvi-the-vinesii" ||
-      ForSaleObject.estates == "any"
-    ) {
-      TableHead("vdvi-the-vinesii", "#vdvi-the-vinesii");
-    }
-    if (
-      ForSaleObject.estates == "vdvii-the-acres" ||
-      ForSaleObject.estates == "any"
-    ) {
-      TableHead("vdvii-the-acres", "#vdvii-the-acres");
-    }
-    //console.log(ForSaleObject);
-    priceRange.min = parseInt(
-      ForSaleObject["price-range-value"].split(" - ").at(0).slice(1)
-    );
-    priceRange.max = parseInt(
-      ForSaleObject["price-range-value"].split(" - ").at(1).slice(1)
-    );
-    bedroomRange.min = parseInt(
-      ForSaleObject["bedroom-range-value"].split(" - ").at(0)
-    );
-    bedroomRange.max = parseInt(
-      ForSaleObject["bedroom-range-value"].split(" - ").at(1)
-    );
-    bathroomRange.min = parseInt(
-      ForSaleObject["bathroom-range-value"].split(" - ").at(0)
-    );
-    bathroomRange.max = parseInt(
-      ForSaleObject["bathroom-range-value"].split(" - ").at(1)
-    );
-    d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
-      let temp;
-      for (let i = 0; i < data.length; i++) {
-        temp = data[i].PropertyType.toLowerCase();
+  /* let iframe = document.getElementById("#pages");
+  let iframeDoc = iframe.contentWindow.document; // iframe.contentDocument || */
+
+  // Check if loading is complete
+  $("#Pages")
+    .contents()
+    .ready(function () {
+      setTimeout(() => {
+        if (ForSaleObject.estates == "hoai" || ForSaleObject.estates == "any") {
+          TableHead("hoai", "#hoai");
+        }
         if (
-          priceRange.min <= parseInt(data[i].PriceVAT) &&
-          priceRange.max >= parseInt(data[i].PriceVAT) &&
-          bedroomRange.min <= parseInt(data[i].Bedrooms) &&
-          bedroomRange.max >= parseInt(data[i].Bedrooms) &&
-          bathroomRange.min <= parseInt(data[i].Bathrooms) &&
-          bathroomRange.max >= parseInt(data[i].Bathrooms)
+          ForSaleObject.estates == "vdvii-la-vue" ||
+          ForSaleObject.estates == "any"
         ) {
-          let precinct = ForSaleObject.estates;
-          if (precinct == "any" && data[i].Precinct in TheEstatesReversed) {
-            precinct = TheEstatesReversed[data[i].Precinct];
-          }
-          if (precinct != undefined && precinct != "any") {
+          TableHead("vdvii-la-vue", "#vdvii-la-vue");
+        }
+        if (
+          ForSaleObject.estates == "vdvi-phasei" ||
+          ForSaleObject.estates == "any"
+        ) {
+          TableHead("vdvi-phasei", "#vdvi-phasei");
+        }
+        if (
+          ForSaleObject.estates == "vdvii-river-club" ||
+          ForSaleObject.estates == "any"
+        ) {
+          TableHead("vdvii-river-club", "#vdvii-river-club");
+        }
+        if (
+          ForSaleObject.estates == "vdvii-gentleman-estate" ||
+          ForSaleObject.estates == "any"
+        ) {
+          TableHead("vdvii-gentleman-estate", "#vdvii-gentleman-estate");
+        }
+        if (
+          ForSaleObject.estates == "vdvii-la-vueii" ||
+          ForSaleObject.estates == "any"
+        ) {
+          TableHead("vdvii-la-vueii", "#vdvii-la-vueii");
+        }
+        if (
+          ForSaleObject.estates == "vdvii-le-domaine" ||
+          ForSaleObject.estates == "any"
+        ) {
+          TableHead("vdvii-le-domaine", "#vdvii-le-domaine");
+        }
+        if (
+          ForSaleObject.estates == "vdvi-the-vines" ||
+          ForSaleObject.estates == "any"
+        ) {
+          TableHead("vdvi-the-vines", "#vdvi-the-vines");
+        }
+        if (
+          ForSaleObject.estates == "vdvi-the-vinesii" ||
+          ForSaleObject.estates == "any"
+        ) {
+          TableHead("vdvi-the-vinesii", "#vdvi-the-vinesii");
+        }
+        if (
+          ForSaleObject.estates == "vdvii-the-acres" ||
+          ForSaleObject.estates == "any"
+        ) {
+          TableHead("vdvii-the-acres", "#vdvii-the-acres");
+        }
+        //console.log(ForSaleObject);
+        priceRange.min = parseInt(
+          ForSaleObject["price-range-value"].split(" - ").at(0).slice(1)
+        );
+        priceRange.max = parseInt(
+          ForSaleObject["price-range-value"].split(" - ").at(1).slice(1)
+        );
+        bedroomRange.min = parseInt(
+          ForSaleObject["bedroom-range-value"].split(" - ").at(0)
+        );
+        bedroomRange.max = parseInt(
+          ForSaleObject["bedroom-range-value"].split(" - ").at(1)
+        );
+        bathroomRange.min = parseInt(
+          ForSaleObject["bathroom-range-value"].split(" - ").at(0)
+        );
+        bathroomRange.max = parseInt(
+          ForSaleObject["bathroom-range-value"].split(" - ").at(1)
+        );
+        d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
+          let temp;
+          for (let i = 0; i < data.length; i++) {
+            temp = data[i].PropertyType.toLowerCase();
             if (
-              (temp == "house" || temp == "stand" || temp == "building") &&
-              ForSaleObject["property-type-any"] != "0"
+              priceRange.min <= parseInt(data[i].PriceVAT) &&
+              priceRange.max >= parseInt(data[i].PriceVAT) &&
+              bedroomRange.min <= parseInt(data[i].Bedrooms) &&
+              bedroomRange.max >= parseInt(data[i].Bedrooms) &&
+              bathroomRange.min <= parseInt(data[i].Bathrooms) &&
+              bathroomRange.max >= parseInt(data[i].Bathrooms)
             ) {
-              TableRow(
-                precinct,
-                data[i].Label,
-                data[i].PropertyType,
-                data[i].Size,
-                data[i].PriceVAT
-              );
-            } else if (
-              (temp == "house" || temp == "stand" || temp == "building") &&
-              ForSaleObject["property-type-house"] != "0"
-            ) {
-              TableRow(
-                precinct,
-                data[i].Label,
-                data[i].PropertyType,
-                data[i].Size,
-                data[i].PriceVAT
-              );
-            } else if (
-              temp == "apartment" &&
-              ForSaleObject["property-type-apartment"] != "0"
-            ) {
-              TableRow(
-                precinct,
-                data[i].Label,
-                data[i].PropertyType,
-                data[i].Size,
-                data[i].PriceVAT
-              );
-            } else if (
-              temp == "estate" &&
-              ForSaleObject["property-type-estate"] != "0"
-            ) {
-              TableRow(
-                precinct,
-                data[i].Label,
-                data[i].PropertyType,
-                data[i].Size,
-                data[i].PriceVAT
-              );
+              let precinct = ForSaleObject.estates;
+              if (precinct == "any" && data[i].Precinct in TheEstatesReversed) {
+                precinct = TheEstatesReversed[data[i].Precinct];
+              }
+              if (precinct != undefined && precinct != "any") {
+                if (
+                  (temp == "house" || temp == "stand" || temp == "building") &&
+                  ForSaleObject["property-type-any"] != "0"
+                ) {
+                  TableRow(
+                    precinct,
+                    data[i].Label,
+                    data[i].PropertyType,
+                    data[i].Size,
+                    data[i].PriceVAT
+                  );
+                } else if (
+                  (temp == "house" || temp == "stand" || temp == "building") &&
+                  ForSaleObject["property-type-house"] != "0"
+                ) {
+                  TableRow(
+                    precinct,
+                    data[i].Label,
+                    data[i].PropertyType,
+                    data[i].Size,
+                    data[i].PriceVAT
+                  );
+                } else if (
+                  temp == "apartment" &&
+                  ForSaleObject["property-type-apartment"] != "0"
+                ) {
+                  TableRow(
+                    precinct,
+                    data[i].Label,
+                    data[i].PropertyType,
+                    data[i].Size,
+                    data[i].PriceVAT
+                  );
+                } else if (
+                  temp == "estate" &&
+                  ForSaleObject["property-type-estate"] != "0"
+                ) {
+                  TableRow(
+                    precinct,
+                    data[i].Label,
+                    data[i].PropertyType,
+                    data[i].Size,
+                    data[i].PriceVAT
+                  );
+                }
+              }
             }
           }
-        }
-      }
+        });
+      }, 1000);
     });
-  }, 1000);
-  /* setTimeout(() => {
-    let number;
-    if (ForSaleObject.estates === "any") {
-      for (const key in TheEstatesReversed) {
-        let iframe = document.getElementById("pages");
-        let innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-        number = innerDoc.getElementById(
-          `${TheEstatesReversed[key]}-body`
-        ).children;
-        if (number.length == 1) {
-          innerDoc.getElementById(`${TheEstatesReversed[key]}-main`).remove();
-        }
-      }
-    }
-  }, 1500); */
   function TableHead(value1, value2) {
     $("#pages")
       .contents()
@@ -1103,104 +1095,96 @@ function UnitSearch(jsonObject) {
   jsonObject.forEach((item) => {
     UnitSearchObject[item.name] = item.value;
   });
-  console.log(UnitSearchObject);
-  setTimeout(() => {
-    if (
-      UnitSearchObject.estates == "hoai" ||
-      UnitSearchObject.estates == "any"
-    ) {
-      TableHead("hoai", "#hoai");
-    }
-    if (
-      UnitSearchObject.estates == "vdvii-la-vue" ||
-      UnitSearchObject.estates == "any"
-    ) {
-      TableHead("vdvii-la-vue", "#vdvii-la-vue");
-    }
-    if (
-      UnitSearchObject.estates == "vdvi-phasei" ||
-      UnitSearchObject.estates == "any"
-    ) {
-      TableHead("vdvi-phasei", "#vdvi-phasei");
-    }
-    if (
-      UnitSearchObject.estates == "vdvii-river-club" ||
-      UnitSearchObject.estates == "any"
-    ) {
-      TableHead("vdvii-river-club", "#vdvii-river-club");
-    }
-    if (
-      UnitSearchObject.estates == "vdvii-gentleman-estate" ||
-      UnitSearchObject.estates == "any"
-    ) {
-      TableHead("vdvii-gentleman-estate", "#vdvii-gentleman-estate");
-    }
-    if (
-      UnitSearchObject.estates == "vdvii-la-vueii" ||
-      UnitSearchObject.estates == "any"
-    ) {
-      TableHead("vdvii-la-vueii", "#vdvii-la-vueii");
-    }
-    if (
-      UnitSearchObject.estates == "vdvii-le-domaine" ||
-      UnitSearchObject.estates == "any"
-    ) {
-      TableHead("vdvii-le-domaine", "#vdvii-le-domaine");
-    }
-    if (
-      UnitSearchObject.estates == "vdvi-the-vines" ||
-      UnitSearchObject.estates == "any"
-    ) {
-      TableHead("vdvi-the-vines", "#vdvi-the-vines");
-    }
-    if (
-      UnitSearchObject.estates == "vdvi-the-vinesii" ||
-      UnitSearchObject.estates == "any"
-    ) {
-      TableHead("vdvi-the-vinesii", "#vdvi-the-vinesii");
-    }
-    if (
-      UnitSearchObject.estates == "vdvii-the-acres" ||
-      UnitSearchObject.estates == "any"
-    ) {
-      TableHead("vdvii-the-acres", "#vdvii-the-acres");
-    }
+  /*  let iframe = document.getElementById("#pages");
+  let iframeDoc = iframe.contentWindow.document; //iframe.contentDocument || */
 
-    d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
-      let temp;
-      for (let i = 0; i < data.length; i++) {
-        let precinct = UnitSearchObject.estates;
-        if (precinct == "any" && data[i].Precinct in TheEstatesReversed) {
-          precinct = TheEstatesReversed[data[i].Precinct];
+  // Check if loading is complete
+
+  $("#Pages")
+    .contents()
+    .ready(function () {
+      setTimeout(() => {
+        if (
+          UnitSearchObject.estates == "hoai" ||
+          UnitSearchObject.estates == "any"
+        ) {
+          TableHead("hoai", "#hoai");
         }
-        if (UnitSearchObject["unit-number"] == data[i].Label) {
-          console.log(data[i].Precinct);
-          TableRow(
-            precinct,
-            data[i].Label,
-            data[i].PropertyType,
-            data[i].Size,
-            data[i].PriceVAT
-          );
+        if (
+          UnitSearchObject.estates == "vdvii-la-vue" ||
+          UnitSearchObject.estates == "any"
+        ) {
+          TableHead("vdvii-la-vue", "#vdvii-la-vue");
         }
-      }
+        if (
+          UnitSearchObject.estates == "vdvi-phasei" ||
+          UnitSearchObject.estates == "any"
+        ) {
+          TableHead("vdvi-phasei", "#vdvi-phasei");
+        }
+        if (
+          UnitSearchObject.estates == "vdvii-river-club" ||
+          UnitSearchObject.estates == "any"
+        ) {
+          TableHead("vdvii-river-club", "#vdvii-river-club");
+        }
+        if (
+          UnitSearchObject.estates == "vdvii-gentleman-estate" ||
+          UnitSearchObject.estates == "any"
+        ) {
+          TableHead("vdvii-gentleman-estate", "#vdvii-gentleman-estate");
+        }
+        if (
+          UnitSearchObject.estates == "vdvii-la-vueii" ||
+          UnitSearchObject.estates == "any"
+        ) {
+          TableHead("vdvii-la-vueii", "#vdvii-la-vueii");
+        }
+        if (
+          UnitSearchObject.estates == "vdvii-le-domaine" ||
+          UnitSearchObject.estates == "any"
+        ) {
+          TableHead("vdvii-le-domaine", "#vdvii-le-domaine");
+        }
+        if (
+          UnitSearchObject.estates == "vdvi-the-vines" ||
+          UnitSearchObject.estates == "any"
+        ) {
+          TableHead("vdvi-the-vines", "#vdvi-the-vines");
+        }
+        if (
+          UnitSearchObject.estates == "vdvi-the-vinesii" ||
+          UnitSearchObject.estates == "any"
+        ) {
+          TableHead("vdvi-the-vinesii", "#vdvi-the-vinesii");
+        }
+        if (
+          UnitSearchObject.estates == "vdvii-the-acres" ||
+          UnitSearchObject.estates == "any"
+        ) {
+          TableHead("vdvii-the-acres", "#vdvii-the-acres");
+        }
+
+        d3.csv("./dist/data/GreaterVDV_SIMS_Combined.csv", function (data) {
+          for (let i = 0; i < data.length; i++) {
+            let precinct = UnitSearchObject.estates;
+            if (precinct == "any" && data[i].Precinct in TheEstatesReversed) {
+              precinct = TheEstatesReversed[data[i].Precinct];
+            }
+            if (UnitSearchObject["unit-number"] == data[i].Label) {
+              console.log(data[i].Precinct);
+              TableRow(
+                precinct,
+                data[i].Label,
+                data[i].PropertyType,
+                data[i].Size,
+                data[i].PriceVAT
+              );
+            }
+          }
+        });
+      }, 1000);
     });
-  }, 1000);
-  /* setTimeout(() => {
-    let number;
-    if (UnitSearchObject.estates === "any") {
-      for (const key in TheEstatesReversed) {
-        let iframe = document.getElementById("pages");
-        let innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-        number = innerDoc.getElementById(
-          `${TheEstatesReversed[key]}-body`
-        ).children;
-        if (number.length == 1) {
-          innerDoc.getElementById(`${TheEstatesReversed[key]}-main`).remove();
-        }
-      }
-    }
-  }, 1500); */
   function TableHead(value1, value2) {
     $("#pages")
       .contents()
