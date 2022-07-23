@@ -791,25 +791,33 @@ function Enquire(
   }
 }
 ///////////////////////////FOR SALE SEARCH AND UNIT SEARCH START
+var globalForSaleJsonObject;
 function StartForSale() {
   $("#pages")
     .contents()
     .find("#for-sale")
     .submit(function (event) {
-      ForSale($(this).serializeArray());
+      globalForSaleJsonObject = $(this).serializeArray();
+      changeSrc("../../dist/pages/areas/searchResults.html");
+      //ForSale($(this).serializeArray());
       event.preventDefault();
     });
 }
+var globalUnitSearchJsonObject;
 //unit search form submission
 function StartUnitSearch() {
   $("#pages")
     .contents()
     .find("#unit-search")
     .submit(function (event) {
-      let jsonObject = $(this).serializeArray();
-      UnitSearch(jsonObject);
+      globalUnitSearchJsonObject = $(this).serializeArray();
+      changeSrc("../../dist/pages/areas/searchResults.html");
       event.preventDefault();
     });
+}
+function changeSrc(loc) {
+  currentLocation = loc;
+  window.parent.document.getElementById("pages").src = loc; //change this
 }
 const priceRange = {
   min: 0,
@@ -823,10 +831,6 @@ const bathroomRange = {
   min: 0,
   max: 0,
 };
-function changeSrc(loc) {
-  currentLocation = loc;
-  window.parent.document.getElementById("pages").src = loc; //change this
-}
 
 function ForSale(jsonObject) {
   const ForSaleObject = {
@@ -867,7 +871,7 @@ function ForSale(jsonObject) {
     "VDV I: Pearl Valley Group": "vdvii-pearl-valley-group",
     "VDV I: Evergreen Retirement": "vdvii-evergreen-retirement",
   };
-  changeSrc("../../dist/pages/areas/searchResults.html");
+  //changeSrc("../../dist/pages/areas/searchResults.html");
 
   jsonObject.forEach((item) => {
     ForSaleObject[item.name] = item.value;
