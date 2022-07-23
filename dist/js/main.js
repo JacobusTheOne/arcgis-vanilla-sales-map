@@ -1,8 +1,8 @@
 let currentLocation;
 function DrawMap(
-  longitudeUnit = 18.9660638,
-  lattitudeUnit = -33.8071444,
-  zoomUnit = 13
+  longitudeUnit = 18.97111436,
+  lattitudeUnit = -33.81043137,
+  zoomUnit = 15
 ) {
   require([
     "esri/config",
