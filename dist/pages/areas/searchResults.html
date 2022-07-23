@@ -77,7 +77,6 @@
               number = document.getElementById(
                 `${TheEstatesReversed[key]}-body`
               ).children;
-              console.log(number);
               if (number.length == 1) {
                 document
                   .getElementById(`${TheEstatesReversed[key]}-main`)
@@ -87,7 +86,7 @@
           } catch (e) {
             console.log(e);
           }
-        }, 1000);
+        }, 2000);
         setTimeout(() => {
           var coll = document.getElementsByClassName("collapsible");
           var i;
@@ -105,7 +104,7 @@
             coll[i].click();
             coll[i].click();
           }
-        }, 1500);
+        }, 2500);
       });
     </script>
     <script></script>
