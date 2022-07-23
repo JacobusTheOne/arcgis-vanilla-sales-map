@@ -1014,7 +1014,7 @@ function ForSale(jsonObject) {
       }
     });
   }, 1000);
-  setTimeout(() => {
+  /* setTimeout(() => {
     let number;
     if (ForSaleObject.estates === "any") {
       for (const key in TheEstatesReversed) {
@@ -1028,7 +1028,7 @@ function ForSale(jsonObject) {
         }
       }
     }
-  }, 1500);
+  }, 1500); */
   function TableHead(value1, value2) {
     $("#pages")
       .contents()
@@ -1186,7 +1186,7 @@ function UnitSearch(jsonObject) {
       }
     });
   }, 1000);
-  setTimeout(() => {
+  /* setTimeout(() => {
     let number;
     if (UnitSearchObject.estates === "any") {
       for (const key in TheEstatesReversed) {
@@ -1200,7 +1200,7 @@ function UnitSearch(jsonObject) {
         }
       }
     }
-  }, 1500);
+  }, 1500); */
   function TableHead(value1, value2) {
     $("#pages")
       .contents()
