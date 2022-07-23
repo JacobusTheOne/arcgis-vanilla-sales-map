@@ -1049,7 +1049,7 @@ function ForSale(jsonObject) {
       .contents()
       .find(`#${value1 + "-main"}`)
       .append(
-        `<h3>${TheEstates[value1]}</h3>`,
+        `<h4 class="h4">${TheEstates[value1]}</h4>`,
         `<button type="button" class="collapsible">Open Collapsible</button>`,
         `<table  id=${value1} class="contents"><tbody id='${value1}-body' class="units-table"></tbody></table>`
       );
@@ -1071,7 +1071,7 @@ function ForSale(jsonObject) {
         .append(`<tr class="table-row-data">
       <td><button onclick="ChangeMapLocationToUnitLocation(
         ${label}
-      )">${label}</button></td>
+      )"  class="btn btn-info">${label}</button></td>
         <td>${propertytype}</td>
         <td>${size}</td>
         <td>${pricevat}</td>
@@ -1233,7 +1233,7 @@ function UnitSearch(jsonObject) {
       .contents()
       .find(`#${value1 + "-main"}`)
       .append(
-        `<h3>${TheEstates[value1]}</h3>`,
+        `<h4 class="h4">${TheEstates[value1]}</h4>`,
         `<button type="button" class="collapsible">Open Collapsible</button>`,
         `<table  id=${value1} class="contents"><tbody id='${value1}-body' class="units-table"></tbody></table>`
       );
@@ -1253,7 +1253,7 @@ function UnitSearch(jsonObject) {
     if (pricevat != "") {
       $("#pages").contents().find(`#${precinct} > tbody:last-child`)
         .append(`<tr class="table-row-data">
-    <td><a onclick="ChangeMapLocationToUnitLocation(${label})">${label}</a></td>
+    <td><button onclick="ChangeMapLocationToUnitLocation(${label})" class="btn btn-info">${label}</button></td>
       <td>${propertytype}</td>
       <td>${size}</td>
       <td>${pricevat}</td>
