@@ -64,8 +64,6 @@
         font-size: 15px;
       }
     </style>
-
-    <script></script>
     <script>
       function ChangeMapLocationToUnitLocation(unit) {
         d3.csv("../../data/GreaterVDV_SIMS_Combined.csv", function (data) {
@@ -105,6 +103,8 @@
         UnitSearch(jsonUnitSearchObject);
       }
       function ForSale(jsonObject) {
+        parent.globalForSaleJsonObject = undefined;
+        $("#main").children().remove();
         const ForSaleObject = {
           estates: "0",
           "property-type-any": "0",
@@ -423,6 +423,8 @@
 
       //UNIT SEARCH
       function UnitSearch(jsonObject) {
+        parent.globalUnitSearchJsonObject = undefined;
+        $("#main").children().remove();
         const UnitSearchObject = {
           estates: "0",
           "unit-number": 0,
@@ -572,13 +574,11 @@
         });
         function TableHead(value1, value2) {
           $(`#main`).append(`<div id="${value1 + "-main"}"></div>`);
-          $("#main")
-            .find(`#${value1 + "-main"}`)
-            .append(
-              `<h4 class="h4">${TheEstates[value1]}</h4>`,
-              `<button type="button" class="collapsible">Open Collapsible</button>`,
-              `<table  id=${value1} class="contents"><tbody id='${value1}-body' class="units-table"></tbody></table>`
-            );
+          $(`#${value1 + "-main"}`).append(
+            `<h4 class="h4">${TheEstates[value1]}</h4>`,
+            `<button type="button" class="collapsible">Open Collapsible</button>`,
+            `<table  id=${value1} class="contents"><tbody id='${value1}-body' class="units-table"></tbody></table>`
+          );
           $("#main").find(`${value2}`).append("<tr></tr>");
           $("#main")
             .find(`${value2}`)
@@ -591,14 +591,16 @@
             );
         }
         function TableRow(precinct, label, propertytype, size, pricevat) {
-          if (pricevat != "") {
+          if (pricevat > 0) {
             $("#main").find(`#${precinct} > tbody:last-child`)
               .append(`<tr class="table-row-data">
-    <td><button onclick="ChangeMapLocationToUnitLocation(${label})" class="btn btn-info">${label}</button></td>
-      <td>${propertytype}</td>
-      <td>${size}</td>
-      <td>${pricevat}</td>
-    </tr>`);
+      <td><button onclick="ChangeMapLocationToUnitLocation(
+        ${label}
+      )"  class="btn btn-info">${label}</button></td>
+        <td>${propertytype}</td>
+        <td>${size}</td>
+        <td>${pricevat}</td>
+      </tr>`);
           }
         }
       }
@@ -618,31 +620,27 @@
           "VDV I: Pearl Valley Group": "vdvii-pearl-valley-group",
           "VDV I: Evergreen Retirement": "vdvii-evergreen-retirement",
         };
-        $("#pages")
-          .contents()
-          .ready(function () {
-            setTimeout(() => {
-              try {
-                let number;
-                for (const key in TheEstatesReversed) {
-                  /* let iframe = document.getElementById("pages");
+        $("#main").ready(function () {
+          setTimeout(() => {
+            try {
+              let number;
+              for (const key in TheEstatesReversed) {
+                /* let iframe = document.getElementById("pages");
             let innerDoc =
               iframe.contentDocument || iframe.contentWindow.document; */
-                  number = $("#main")
-                    .find(`#${TheEstatesReversed[key]}-body`)
-                    .children().length;
-                  console.log(number);
-                  if (number <= 1) {
-                    $("#main")
-                      .find(`#${TheEstatesReversed[key]}-main`)
-                      .remove();
-                  }
+                number = $("#main")
+                  .find(`#${TheEstatesReversed[key]}-body`)
+                  .children().length;
+                console.log(number);
+                if (number <= 1) {
+                  $("#main").find(`#${TheEstatesReversed[key]}-main`).remove();
                 }
-              } catch (e) {
-                console.log(e);
               }
-            }, 2000);
-          });
+            } catch (e) {
+              console.log(e);
+            }
+          }, 2000);
+        });
         CloseTables();
       }
 
@@ -664,6 +662,7 @@
             coll[i].click();
             coll[i].click();
           }
+          jsonUnitSearchObject = undefined;
         }, 3000);
       }
     </script>
