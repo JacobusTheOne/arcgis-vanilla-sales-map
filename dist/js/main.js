@@ -1019,6 +1019,7 @@ function ForSale(jsonObject) {
             }
           }
         });
+        RemoveEmptyTables();
       }, 1000);
     });
   function TableHead(value1, value2) {
@@ -1183,6 +1184,7 @@ function UnitSearch(jsonObject) {
             }
           }
         });
+        RemoveEmptyTables();
       }, 1000);
     });
   function TableHead(value1, value2) {
@@ -1221,4 +1223,67 @@ function UnitSearch(jsonObject) {
     </tr>`);
     }
   }
+}
+
+function RemoveEmptyTables() {
+  const TheEstatesReversed = {
+    "VDV I: HOA I": "hoai",
+    "VDV I: Phase 1": "vdvi-phasei",
+    "VDV II: River Club": "vdvii-river-club",
+    "VDV II:Gentleman Est": "vdvii-gentleman-estate",
+    "VDV II: La Vue": "vdvii-la-vue",
+    "VDV II: La Vue II": "vdvii-la-vueii",
+    "VDV II: Le Domaine": "vdvii-le-domaine",
+    "VDV I: The Vines": "vdvi-the-vines",
+    "VDV I: The Vines II": "vdvi-the-vinesii",
+    "VDV II: The Acres": "vdvii-the-acres",
+  };
+  $("#pages")
+    .contents()
+    .ready(function () {
+      setTimeout(() => {
+        try {
+          let number;
+          for (const key in TheEstatesReversed) {
+            /* let iframe = document.getElementById("pages");
+            let innerDoc =
+              iframe.contentDocument || iframe.contentWindow.document; */
+            number = $("#pages")
+              .contents()
+              .find(`#${TheEstatesReversed[key]}-body`)
+              .children().length;
+            if (number == 1) {
+              $("#pages")
+                .contents()
+                .find(`#${TheEstatesReversed[key]}-main`)
+                .remove();
+            }
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }, 1000);
+    });
+  CloseTables();
+}
+
+function CloseTables() {
+  setTimeout(() => {
+    var coll = $("#pages").contents().find(".collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+      coll[i].click();
+      coll[i].click();
+    }
+  }, 1500);
 }
