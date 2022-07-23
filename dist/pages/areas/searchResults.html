@@ -48,26 +48,7 @@
         font-size: 15px;
       }
     </style>
-    <script>
-      setTimeout(() => {
-        var coll = document.getElementsByClassName("collapsible");
-        var i;
 
-        for (i = 0; i < coll.length; i++) {
-          coll[i].addEventListener("click", function () {
-            this.classList.toggle("active");
-            var content = this.nextElementSibling;
-            if (content.style.display === "block") {
-              content.style.display = "none";
-            } else {
-              content.style.display = "block";
-            }
-          });
-          coll[i].click();
-          coll[i].click();
-        }
-      }, 1200);
-    </script>
     <script>
       function ChangeMapLocationToUnitLocation(unit) {
         d3.csv("../../data/GreaterVDV_SIMS_Combined.csv", function (data) {
@@ -99,4 +80,52 @@
       background-color: #f1f1f1;
     }
   </style>
+  <script>
+    const TheEstatesReversed = {
+      "VDV I: HOA I": "hoai",
+      "VDV I: Phase 1": "vdvi-phasei",
+      "VDV II: River Club": "vdvii-river-club",
+      "VDV II:Gentleman Est": "vdvii-gentleman-estate",
+      "VDV II: La Vue": "vdvii-la-vue",
+      "VDV II: La Vue II": "vdvii-la-vueii",
+      "VDV II: Le Domaine": "vdvii-le-domaine",
+      "VDV I: The Vines": "vdvi-the-vines",
+      "VDV I: The Vines II": "vdvi-the-vinesii",
+      "VDV II: The Acres": "vdvii-the-acres",
+    };
+    setTimeout(() => {
+      let number;
+      /* if (ForSaleObject.estates === "any") { */
+      for (const key in TheEstatesReversed) {
+        /* let iframe = document.getElementById("pages");
+          let innerDoc =
+            iframe.contentDocument || iframe.contentWindow.document; */
+        number = document.getElementById(
+          `${TheEstatesReversed[key]}-body`
+        ).children;
+        if (number.length == 1) {
+          document.getElementById(`${TheEstatesReversed[key]}-main`).remove();
+        }
+      }
+      /*  } */
+    }, 1000);
+    setTimeout(() => {
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+
+      for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.display === "block") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+        });
+        coll[i].click();
+        coll[i].click();
+      }
+    }, 2000);
+  </script>
 </html>
