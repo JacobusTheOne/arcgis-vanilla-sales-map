@@ -866,7 +866,6 @@ function ForSale(jsonObject) {
   changeSrc("../../dist/pages/areas/searchResults.html");
 
   jsonObject.forEach((item) => {
-    console.log(item.name);
     ForSaleObject[item.name] = item.value;
   });
   /* let iframe = document.getElementById("#pages");
@@ -1184,8 +1183,8 @@ function UnitSearch(jsonObject) {
             }
           }
         });
-        RemoveEmptyTables();
-      }, 1000);
+      }, 1500);
+      RemoveEmptyTables();
     });
   function TableHead(value1, value2) {
     $("#pages")
@@ -1262,7 +1261,7 @@ function RemoveEmptyTables() {
         } catch (e) {
           console.log(e);
         }
-      }, 1000);
+      }, 1500);
     });
   CloseTables();
 }
