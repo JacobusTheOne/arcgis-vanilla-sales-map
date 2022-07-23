@@ -5,6 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
     <title>Search Results</title>
     <style>
       .units-table {
@@ -100,15 +105,14 @@
         /* let iframe = document.getElementById("pages");
           let innerDoc =
             iframe.contentDocument || iframe.contentWindow.document; */
-        number = document.getElementById(
-          `${TheEstatesReversed[key]}-body`
-        ).children;
+        number = document.getElementById(`${TheEstatesReversed[key]}-body`).children;
+        console.log(number);
         if (number.length == 1) {
           document.getElementById(`${TheEstatesReversed[key]}-main`).remove();
         }
       }
       /*  } */
-    }, 3000);
+    }, 1000);
     setTimeout(() => {
       var coll = document.getElementsByClassName("collapsible");
       var i;
@@ -126,6 +130,6 @@
         coll[i].click();
         coll[i].click();
       }
-    }, 5000);
+    }, 1500);
   </script>
 </html>
