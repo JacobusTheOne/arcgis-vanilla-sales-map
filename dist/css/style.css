@@ -20,11 +20,23 @@
   cursor: pointer;
 }
 
+.legend-container {
+  display: inline-flexbox;
+  position: absolute;
+  left: 0vw;
+  width: fit-content;
+  height: 275px;
+  background-color: rgb(255, 255, 255);
+  z-index: 1;
+  border-radius: 5px;
+  padding: 10px;
+}
+
 .legend-container.closed {
   height: 79px !important;
 }
 
-.legend-container.closed div {
+.legend-container.closed .legend-container-icons {
   display: none !important;
 }
 

@@ -12,7 +12,7 @@
       rel="stylesheet"
       href="https://js.arcgis.com/4.23/esri/themes/light/main.css"
     />
-    <!-- <link rel="stylesheet" type="text/css" href="../arcgis-vanilla-sales-map/.arcgis-js-cli-styles/examples/dark-red/main.scss"></link> -->
+
     <link
       rel="stylesheet"
       href="dist/css/style.css"
@@ -22,10 +22,7 @@
       type="text/javascript"
       src="https://js.hsforms.net/forms/v2.js"
     ></script>
-    <!-- <script
-    src="https://code.jquery.com/jquery-2.2.4.min.js"
-    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-    crossorigin="anonymous"></script> -->
+
     <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -102,15 +99,7 @@
             images = $('#pages').contents().find('#gallery').children('img').map(function(){
             return $(this).attr('src')
             }).get();
-              /* $('#pages').contents().find('#gallery').children('img').click(function () {
-              let originalImage = $(this).attr("src");
-              currentImage = originalImage//"./dist" + originalImage.slice(5);             
-              $('#left-arrow').after(`<img id="large-image" class="enlarged-image" src=${currentImage} alt="">`);
-              on();
-            });
-            images = $('#pages').contents().find('#gallery').children('img').map(function(){
-            return $(this).attr('src')
-            }).get(); */
+     
           }
         });
       });
@@ -162,10 +151,10 @@
       </div>
       <iframe id="pages" style="width:21vw;height:100vh;min-width: 333px;"></iframe>
       <div id="viewDiv" style="height: 100vh; width: 75vw; position: relative">
-      <div id="legend-container-box" class="legend-container open" style="display:inline-flexbox;position: absolute;left: 0vw;width: fit-content;height: 275px;background-color: rgb(255, 255, 255); z-index: 1;
-      border-radius: 5px; padding: 10px">
-        <h3 id="legend-title" style="font-size: 13px;">Legend <span class="desktop-hide"> <img id="menu-toggle" height="15px" src="dist/images/drop-down-close.png"> </span></h3>
-        <div style="white-space:nowrap;">
+      <div id="legend-container-box" class="legend-container open">
+        <h2 id="legend-title" style="font-size: 16px;">Legend <div class="desktop-hide" style="margin-top: 10px;"> <i id="legend-arrow-dropdown" class="fa fa-angle-double-down fa-lg"></i></div></h2>
+        <div class="legend-container-icons">
+        <div  style="white-space:nowrap;">
           
           <div style=" display:inline-block;padding: 3px 0;font-size: 11px; width: 80px;">Unreleased </div>
         
@@ -233,6 +222,7 @@
             ";
             ></div>
         </div>
+        </div>
       </div>
       <div id="infoDiv" class="esri-widget">
         <input
@@ -245,103 +235,7 @@
       <!-- <div id="legendDiv"></div> -->
     </div>
     </div>
-    <!-- PRELOAD IMAGE CONTENT SEE IF IT IS SPEEDIER -->
-    <!-- <div style="display: none;">
-      <div id="la_vueII">
-        <h4 class="h4">Gallery</h4>
-        <img
-          src="../../images/la_vueii/1M8A2375.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/1M8A2829.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/1M8A5546.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/1M8A7061.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/1M8A7063.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/1M8A7070.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/DJI_0234.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/DJI_0235.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/DJI_0237.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/DJI_0241.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/DJI_0242.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/DJI_0243.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/DJI_0244.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/DJI_0246.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/DJI_0247.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/DJI_0248.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/DJI_0249.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-        <img
-          src="../../images/la_vueii/DJI_0251.jpg"
-          alt="relaxing pictures of Le Domaine"
-          class="image-in-iframe"
-        />
-      </div>
-    </div> -->
-    <!-- END -->
+    
     <script>
       function on() {
         document.getElementById("overlay").style.display = "block";
